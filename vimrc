@@ -175,6 +175,7 @@ function! s:php_settings()
     set smartindent
     nmap <C-s> :write!<CR>
     imap <C-s> <C-o>:write!<CR>
+    let b:SuperTabDisabled=0
 endfun
 
 function! s:py_settings()
@@ -243,6 +244,7 @@ noremap <silent> ,t :TlistToggle<CR>
 let g:Tlist_Auto_Open=0
 
 " SuperTab
+let b:SuperTabDisabled=1
 set completeopt=menuone,longest
 let g:SuperTabLongestEnhanced=1
 let g:SuperTabLongestHighlight=1

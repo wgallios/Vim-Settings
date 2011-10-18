@@ -106,9 +106,8 @@ set cpo&vim
   if !exists("g:SuperTabMappingBackward")
     let g:SuperTabMappingBackward = '<s-tab>'
   endif
-
   if !exists("g:SuperTabMappingTabLiteral")
-    let g:SuperTabMappingTabLiteral = '<c-tab>'
+    let g:SuperTabMappingTabLiteral = '<c-t>'
   endif
 
   if !exists("g:SuperTabLongestEnhanced")
