@@ -28,89 +28,17 @@ if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
   set t_Sb=[4%dm
 endif
 
-"nmap <silent><Home> :call SmartHome("n")<CR>
-"nmap <silent><End> :call SmartEnd("n")<CR>
-"imap <silent><Home> <C-r>=SmartHome("i")<CR>
-"imap <silent><End> <C-r>=SmartEnd("i")<CR>
-"vmap <silent><Home> <Esc>:call SmartHome("v")<CR>
-"vmap <silent><End> <Esc>:call SmartEnd("v")<CR>
-"
-"function SmartHome(mode)
-"    let curcol = col(".")
-"    if curcol > indent(".") + 2
-"        call cursor(0, curcol - 1)
-"    endif
-"    if curcol == 1 || curcol > indent(".") + 1
-"        if &wrap
-"            normal g^
-"        else
-"            normal ^
-"        endif
-"    else
-"        if &wrap
-"            normal g0
-"        else
-"            normal 0
-"        endif
-"    endif
-"    if a:mode == "v"
-"        normal msgv`s
-"    endif
-"    return ""
-"endfunction
-"
-"function SmartEnd(mode)
-"    let curcol = col(".")
-"    let lastcol = a:mode == "i" ? col("$") : col("$") - 1
-"    if curcol < lastcol - 1
-"        call cursor(0, curcol + 1)
-"    endif
-"    if curcol < lastcol
-"        if &wrap
-"            normal g$
-"        else
-"            normal $
-"        endif
-"    else
-"        normal g_
-"    endif
-"    if a:mode == "i"
-"        call cursor(0, col(".") + 1)
-"    endif
-"    if a:mode == "v"
-"        normal msgv`s
-"    endif
-"    return ""
-"endfunction
-
-"function! s:HomeLikeVCpp()
-"    let ll = strpart(getline('.'), -1, col('.'))
-"    if ll =~ '^\s+$'  | return '0'
-"    else              | return '^'
-"    endif
-"endfunction
-"
-"imap <silent> <Home> <c-o>@=<SID>HomeLikeVCpp()<cr>
-"nmap <silent> <Home> @=<SID>HomeLikeVCpp()<cr>
-
-"function! SmartHome()
-"    let s:col = col(".")
-"        normal! ^
-"    if s:col == col(".")
-"        normal! 0
-"    endif
-"endfunction
-"
-"nnoremap <silent> <Home> :call SmartHome()<CR>
-"inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
-
+" // clears search highlight
 nmap <silent> // :noh<CR>
 
+" Tab indenting
 nmap <Tab> >>
 nmap <S-Tab> <<
+
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 
+" Quick word jumping with Ctrl+Arrows
 imap <C-[>[A <Up>
 imap <C-[>[B <Down>
 imap <C-[>[C <S-Right>
@@ -120,6 +48,13 @@ nmap <C-[>[A <Up>
 nmap <C-[>[B <Down>
 nmap <C-[>[C <S-Right>
 nmap <C-[>[D <S-Left>
+
+" Tab movement keys
+"imap <Right> <C-o>:tabn<CR>
+"imap <Left> <C-o>:tabp<CR>
+
+nmap <Right> :tabn<CR>
+nmap <Left> :tabp<CR>
 
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
@@ -249,5 +184,9 @@ set completeopt=menuone,longest
 let g:SuperTabLongestEnhanced=1
 let g:SuperTabLongestHighlight=1
 let g:SuperTabDefaultCompletionType='context'
+
+" SmartHome
+map [1~ :SmartHomeKey<CR>
+imap [1~ <C-o>:SmartHomeKey<CR>
 
 call pathogen#infect()
