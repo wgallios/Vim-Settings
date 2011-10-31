@@ -74,10 +74,16 @@ if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
   set t_Sb=[4%dm
 endif
 
-let mapleader=","
-
 
 "" Keybinds
+
+let mapleader=","
+
+" Easier diffget
+if &diff
+    nnoremap <Leader>d[ :diffget 1
+    nnoremap <Leader>d] :diffget 3
+endif
 
 " // clears search highlight
 nnoremap <silent> // :noh<CR>
@@ -166,12 +172,7 @@ au CursorHoldI * stopinsert
 au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
 au InsertLeave * let &updatetime=updaterestore
 
-" file settings
-au BufNewFile,BufRead *.php             call s:php_settings()
-au BufNewFile,BufRead *.py              call s:py_settings()
-au BufNewFile,BufRead *.html            call s:html_settings()
-au BufNewFile,BufRead *.css             call s:css_settings()
-au BufNewFile,BufRead *.js              call s:js_settings()
+" Special vb template binds
 au BufRead */templates/*.html           call s:template_binds()
 
 function! s:template_binds()
@@ -180,57 +181,6 @@ function! s:template_binds()
     imap <C-b> <C-o>:make!<CR>
     nmap ,c :nunmap ,c<CR>:rightbelow vs ~/html/slickdeals/css/306/usercp.css<CR>:vert res -50<CR><C-w>h<C-l>
 endfun
-
-function! s:php_settings()
-    set tabstop=4
-    set softtabstop=4
-    set shiftwidth=4
-    set smarttab
-    set expandtab
-    set autoindent
-    set smartindent
-    nmap <C-s> :write!<CR>
-    imap <C-s> <C-o>:write!<CR>
-    let b:SuperTabDisabled=0
-endfun
-
-function! s:py_settings()
-    set tabstop=4
-    set softtabstop=4
-    set shiftwidth=4
-    set smarttab
-    set expandtab
-    set autoindent
-    set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-endfun
-
-function! s:html_settings()
-    set tabstop=2
-    set softtabstop=2
-    set shiftwidth=2
-    set smarttab
-    set expandtab
-    set autoindent
-endfun
-
-function! s:css_settings()
-    set tabstop=4
-    set softtabstop=4
-    set shiftwidth=4
-    set smarttab
-    set expandtab
-    set autoindent
-endfun
-
-function! s:js_settings()
-    set tabstop=4
-    set softtabstop=4
-    set shiftwidth=4
-    set smarttab
-    set expandtab
-    set autoindent
-endfun
-
 
 """ Plugins
 
