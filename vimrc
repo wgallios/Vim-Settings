@@ -1,26 +1,64 @@
 " vim: ts=4 sts=4 sw=4 et ai
 
-set nocompatible                " Use Vim defaults instead of 100% vi compatibility
-set backspace=indent,eol,start  " more powerful backspacing
+set autowrite
+set backspace=indent,eol,start
+set backupcopy=no
+set history=50
+set incsearch
+set laststatus=2
+set mouse=a
+set noautoindent
+set nobackup
+set nocompatible
+set nolist
+set ruler
+set shell=/bin/bash
+set showcmd
+set showmatch
+set showmode
+set splitright
+set textwidth=0
+set title
+set viminfo='20,\"50
 
-set noautoindent                " always set autoindenting off
-set textwidth=0                 " Don't wrap words by default
-set nobackup                    " Don't keep a backup file
-set backupcopy=no               " KNOPPIX: Overwrite files/links with w!
-set viminfo='20,\"50            " read/write a .viminfo file, don't store more than
-                                " 50 lines of registers
-set history=50                  " keep 50 lines of command line history
-set ruler                       " show the cursor position all the time
+set wildmenu
+set wildignore+=.git/*,.hg/*,.svn/*,*.orig          " version control
+set wildignore+=._*,.DS_Store                       " OSX nonsense
+set wildignore+=*.aux,*.out,*.toc                   " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg      " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest    " compiled object files
+set wildignore+=*.spl,.sw?,.py?                     " more binary stuff
+
+" Suffixes that get lower priority when doing tab completion for filenames.
+" These are files we are not likely to want to edit or read.
+set suffixes=.bak,~,.o,.info,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx
 
 colorscheme default
 set background=dark
 
-set wildmenu
-set wildignore+=.git/*,.hg/*,.svn/*,._*,.DS_Store
+" Highlight conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
-" Suffixes that get lower priority when doing tab completion for filenames.
-" These are files we are not likely to want to edit or read.
-set suffixes=.pyc,.pyo,.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.orig
+set statusline=%f    " Path.
+set statusline+=%m   " Modified flag.
+set statusline+=%r   " Readonly flag.
+set statusline+=%w   " Preview window flag.
+
+set statusline+=\    " Space.
+
+set statusline+=%=   " Right align.
+
+" File format, encoding and type.  Ex: "(unix/utf-8/python)"
+set statusline+=(
+set statusline+=%{&ff}                        " Format (unix/DOS).
+set statusline+=/
+set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+set statusline+=/
+set statusline+=%{&ft}                        " Type (python).
+set statusline+=)
+
+" Line and column position and counts.
+set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
 " We know xterm-debian is a color terminal
 if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
@@ -29,8 +67,17 @@ if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
   set t_Sb=[4%dm
 endif
 
+let mapleader=","
+
 " // clears search highlight
 nnoremap <silent> // :noh<CR>
+
+" Space toggles folds
+nnoremap <Space> za
+vnoremap <Space> za
+
+" z0 = recursively open top-level fold we're in
+nnoremap z0 zCz0
 
 " Tab indenting
 nnoremap <Tab> >>
@@ -60,6 +107,9 @@ noremap Y y$
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
+" Disable man key
+nnoremap K <nop>
+
 function! Preserve(command)
     let _s=@/
     let l = line(".")
@@ -80,12 +130,15 @@ if has("autocmd")
     let php_htmlInStrings=1
 endif " has ("autocmd")
 
-" Some Debian-specific things
+" Resize splits when the window is resized
+au VimResized * exe "normal! \<c-w>="
+
 augroup filetype
   au BufRead reportbug.*                set ft=mail
   au BufRead reportbug-*                set ft=mail
 augroup END
 
+" file settings
 au BufNewFile,BufRead *.php             call s:php_settings()
 au BufNewFile,BufRead *.py              call s:py_settings()
 au BufNewFile,BufRead *.html            call s:html_settings()
@@ -150,12 +203,6 @@ function! s:js_settings()
     set expandtab
     set autoindent
 endfun
-
-set showcmd             " Show (partial) command in status line.
-set showmatch           " Show matching brackets.
-set incsearch           " Incremental search
-set autowrite           " Automatically save before commands like :next and :make
-set mouse=a             " Mouse support!
 
 " Fix numpad over SSH
 inoremap <Esc>Oq 1
