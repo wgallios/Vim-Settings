@@ -22,6 +22,14 @@ set textwidth=0
 set title
 set viminfo='20,\"50
 
+set autoindent
+set expandtab
+set smarttab
+
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
 set wildmenu
 set wildignore+=.git/*,.hg/*,.svn/*,*.orig          " version control
 set wildignore+=._*,.DS_Store                       " OSX nonsense
@@ -66,6 +74,15 @@ set statusline+=)
 
 " Line and column position and counts.
 set statusline+=\ (line\ %l\/%L,\ col\ %03c)
+
+if &term == "screen"
+    set t_ts=k
+    set t_fs=\
+    set ttymouse=xterm2
+endif
+
+" Set window title to same as statusline
+" let &titlestring=&statusline
 
 " We know xterm-debian is a color terminal
 if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
@@ -132,6 +149,10 @@ nnoremap K <nop>
 nnoremap <silent> <leader>d "_d
 vnoremap <silent> <leader>d "_d
 
+" Ctrl+S to save
+nmap <C-s> :write!<CR>
+imap <C-s> <C-o>:write!<CR>
+
 " Map _$ to trim whitespace on the end of lines
 function! Preserve(command)
     let _s=@/
@@ -168,18 +189,17 @@ inoremap <Esc>OS -
 au VimResized * exe "normal! \<c-w>="
 
 " Exit insert mode after 15 seconds of no input
-au CursorHoldI * stopinsert
-au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
-au InsertLeave * let &updatetime=updaterestore
+" au CursorHoldI * stopinsert
+" au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+" au InsertLeave * let &updatetime=updaterestore
 
 " Special vb template binds
 au BufRead */templates/*.html           call s:template_binds()
 
 function! s:template_binds()
-    set makeprg=clear;php\ ~/bin/update_templates.php\ %:p
-    nmap <C-b> :make!<CR>
-    imap <C-b> <C-o>:make!<CR>
-    nmap ,c :nunmap ,c<CR>:rightbelow vs ~/html/slickdeals/css/306/usercp.css<CR>:vert res -50<CR><C-w>h<C-l>
+    setlocal makeprg=clear;php\ ~/bin/update_templates.php\ %:p
+    nmap <buffer> <C-b> :make!<CR>
+    imap <buffer> <C-b> <C-o>:make!<CR>
 endfun
 
 """ Plugins
