@@ -30,32 +30,32 @@ if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
 endif
 
 " // clears search highlight
-nmap <silent> // :noh<CR>
+nnoremap <silent> // :noh<CR>
 
 " Tab indenting
-nmap <Tab> >>
-nmap <S-Tab> <<
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
 
-vmap <Tab> >gv
-vmap <S-Tab> <gv
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
 " Quick word jumping with Ctrl+Arrows
-imap <C-[>[A <Up>
-imap <C-[>[B <Down>
-imap <C-[>[C <S-Right>
-imap <C-[>[D <S-Left>
+inoremap <C-[>[A <Up>
+inoremap <C-[>[B <Down>
+inoremap <C-[>[C <S-Right>
+inoremap <C-[>[D <S-Left>
 
-nmap <C-[>[A <Up>
-nmap <C-[>[B <Down>
-nmap <C-[>[C <S-Right>
-nmap <C-[>[D <S-Left>
+nnoremap <C-[>[A <Up>
+nnoremap <C-[>[B <Down>
+nnoremap <C-[>[C <S-Right>
+nnoremap <C-[>[D <S-Left>
 
 " Tab movement keys
-nmap <Right> :tabn<CR>
-nmap <Left> :tabp<CR>
+nnoremap <Right> :tabn<CR>
+nnoremap <Left> :tabp<CR>
 
 " Change Y to copy from current character to end of line (mimic y0's behavior but backwards)
-map Y y$
+noremap Y y$
 
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
@@ -153,27 +153,26 @@ endfun
 
 set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
-"set ignorecase         " Do case insensitive matching
 set incsearch           " Incremental search
 set autowrite           " Automatically save before commands like :next and :make
 set mouse=a             " Mouse support!
 
 " Fix numpad over SSH
-imap <Esc>Oq 1
-imap <Esc>Or 2
-imap <Esc>Os 3
-imap <Esc>Ot 4
-imap <Esc>Ou 5
-imap <Esc>Ov 6
-imap <Esc>Ow 7
-imap <Esc>Ox 8
-imap <Esc>Oy 9
-imap <Esc>Op 0
-imap <Esc>On .
-imap <Esc>OR *
-imap <Esc>OQ /
-imap <Esc>Ol +
-imap <Esc>OS -
+inoremap <Esc>Oq 1
+inoremap <Esc>Or 2
+inoremap <Esc>Os 3
+inoremap <Esc>Ot 4
+inoremap <Esc>Ou 5
+inoremap <Esc>Ov 6
+inoremap <Esc>Ow 7
+inoremap <Esc>Ox 8
+inoremap <Esc>Oy 9
+inoremap <Esc>Op 0
+inoremap <Esc>On .
+inoremap <Esc>OR *
+inoremap <Esc>OQ /
+inoremap <Esc>Ol +
+inoremap <Esc>OS -
 
 " Taglist
 noremap <silent> ,t :TlistToggle<CR>
@@ -187,7 +186,7 @@ let g:SuperTabLongestHighlight=1
 let g:SuperTabDefaultCompletionType='context'
 
 " SmartHome
-map [1~ :SmartHomeKey<CR>
-imap [1~ <C-o>:SmartHomeKey<CR>
+noremap [1~ :SmartHomeKey<CR>
+inoremap [1~ <C-o>:SmartHomeKey<CR>
 
 call pathogen#infect()
