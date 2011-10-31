@@ -205,8 +205,7 @@ fun! HtmlIndentGet(lnum)
     "      the pair will still match if we are before the beginning of the
     "      pair.
     "
-    if   0 < searchpair(js, '', '</script>', 'nWb')
-    \ && 0 < searchpair(js, '', '</script>', 'nW')
+    if 0 && 0 < searchpair(js, '', '</script>', 'nWb') && 0 < searchpair(js, '', '</script>', 'nW')
 	" we're inside javascript
 	if getline(lnum) !~ js && getline(a:lnum) != '</script>'
 	    if restore_ic == 0
