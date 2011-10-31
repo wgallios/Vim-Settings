@@ -12,6 +12,7 @@ set nobackup
 set nocompatible
 set nolist
 set ruler
+set scrolloff=5
 set shell=/bin/bash
 set showcmd
 set showmatch
@@ -33,8 +34,16 @@ set wildignore+=*.spl,.sw?,.py?                     " more binary stuff
 " These are files we are not likely to want to edit or read.
 set suffixes=.bak,~,.o,.info,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx
 
+syntax on
 colorscheme default
 set background=dark
+
+if has("autocmd")
+    filetype plugin on
+    filetype indent on
+    let php_sql_query=1
+    let php_htmlInStrings=1
+endif
 
 " Highlight conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -43,9 +52,7 @@ set statusline=%f    " Path.
 set statusline+=%m   " Modified flag.
 set statusline+=%r   " Readonly flag.
 set statusline+=%w   " Preview window flag.
-
 set statusline+=\    " Space.
-
 set statusline+=%=   " Right align.
 
 " File format, encoding and type.  Ex: "(unix/utf-8/python)"
@@ -68,6 +75,9 @@ if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
 endif
 
 let mapleader=","
+
+
+"" Keybinds
 
 " // clears search highlight
 nnoremap <silent> // :noh<CR>
@@ -101,7 +111,8 @@ nnoremap <C-[>[D <S-Left>
 nnoremap <Right> :tabn<CR>
 nnoremap <Left> :tabp<CR>
 
-" Change Y to copy from current character to end of line (mimic y0's behavior but backwards)
+" Change Y to copy from current character to end of line
+" (mimic y0's behavior but backwards)
 noremap Y y$
 
 " Make p in Visual mode replace the selected text with the "" register.
@@ -110,6 +121,12 @@ vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 " Disable man key
 nnoremap K <nop>
 
+" Use ,d (or ,dd or ,dj or 20,dd) to delete a line without adding it to the
+" yanked stack (also, in visual mode)
+nnoremap <silent> <leader>d "_d
+vnoremap <silent> <leader>d "_d
+
+" Map _$ to trim whitespace on the end of lines
 function! Preserve(command)
     let _s=@/
     let l = line(".")
@@ -119,24 +136,35 @@ function! Preserve(command)
     call cursor(l, c)
 endfun
 
-nmap _$ :call Preserve("%s/\\s\\+$//e")<CR><C-l>
+nmap <silent> _$ :call Preserve("%s/\\s\\+$//e")<CR><C-l>
 
-syntax on
+" Fix numpad over some SSH connections
+inoremap <Esc>Oq 1
+inoremap <Esc>Or 2
+inoremap <Esc>Os 3
+inoremap <Esc>Ot 4
+inoremap <Esc>Ou 5
+inoremap <Esc>Ov 6
+inoremap <Esc>Ow 7
+inoremap <Esc>Ox 8
+inoremap <Esc>Oy 9
+inoremap <Esc>Op 0
+inoremap <Esc>On .
+inoremap <Esc>OR *
+inoremap <Esc>OQ /
+inoremap <Esc>Ol +
+inoremap <Esc>OS -
 
-if has("autocmd")
-    filetype plugin on
-    filetype indent on
-    let php_sql_query=1
-    let php_htmlInStrings=1
-endif " has ("autocmd")
+
+"" Auto Commands
 
 " Resize splits when the window is resized
 au VimResized * exe "normal! \<c-w>="
 
-augroup filetype
-  au BufRead reportbug.*                set ft=mail
-  au BufRead reportbug-*                set ft=mail
-augroup END
+" Exit insert mode after 15 seconds of no input
+au CursorHoldI * stopinsert
+au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+au InsertLeave * let &updatetime=updaterestore
 
 " file settings
 au BufNewFile,BufRead *.php             call s:php_settings()
@@ -144,7 +172,6 @@ au BufNewFile,BufRead *.py              call s:py_settings()
 au BufNewFile,BufRead *.html            call s:html_settings()
 au BufNewFile,BufRead *.css             call s:css_settings()
 au BufNewFile,BufRead *.js              call s:js_settings()
-
 au BufRead */templates/*.html           call s:template_binds()
 
 function! s:template_binds()
@@ -204,22 +231,8 @@ function! s:js_settings()
     set autoindent
 endfun
 
-" Fix numpad over SSH
-inoremap <Esc>Oq 1
-inoremap <Esc>Or 2
-inoremap <Esc>Os 3
-inoremap <Esc>Ot 4
-inoremap <Esc>Ou 5
-inoremap <Esc>Ov 6
-inoremap <Esc>Ow 7
-inoremap <Esc>Ox 8
-inoremap <Esc>Oy 9
-inoremap <Esc>Op 0
-inoremap <Esc>On .
-inoremap <Esc>OR *
-inoremap <Esc>OQ /
-inoremap <Esc>Ol +
-inoremap <Esc>OS -
+
+""" Plugins
 
 " Taglist
 noremap <silent> ,t :TlistToggle<CR>
