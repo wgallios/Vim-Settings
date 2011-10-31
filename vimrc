@@ -51,11 +51,11 @@ nmap <C-[>[C <S-Right>
 nmap <C-[>[D <S-Left>
 
 " Tab movement keys
-"imap <Right> <C-o>:tabn<CR>
-"imap <Left> <C-o>:tabp<CR>
-
 nmap <Right> :tabn<CR>
 nmap <Left> :tabp<CR>
+
+" Change Y to copy from current character to end of line (mimic y0's behavior but backwards)
+map Y y$
 
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
