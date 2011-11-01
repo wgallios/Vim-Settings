@@ -195,11 +195,18 @@ au VimResized * exe "normal! \<c-w>="
 
 " Special vb template binds
 au BufRead */templates/*.html           call s:template_binds()
+au BufNewFile,BufRead *.html            call s:html_settings()
 
 function! s:template_binds()
     setlocal makeprg=clear;php\ ~/bin/update_templates.php\ %:p
     nmap <buffer> <C-b> :make!<CR>
     imap <buffer> <C-b> <C-o>:make!<CR>
+endfun
+
+function! s:html_settings()
+    setlocal tabstop=2
+    setlocal softtabstop=2
+    setlocal shiftwidth=2
 endfun
 
 """ Plugins
