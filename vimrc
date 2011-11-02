@@ -1,41 +1,5 @@
 " vim: ts=4 sts=4 sw=4 et ai
 
-command! -nargs=1 -complete=customlist,SComplete S tabnew ~/html/slickdeals/sdincludes/<args>
-function! SComplete(A,L,P)
-    let filelist = globpath($HOME."/html/slickdeals/sdincludes", a:A."*.php")
-    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/", "", "g")
-    return split(filelist, "\n")
-endfun
-
-command! -nargs=1 -complete=customlist,JComplete J tabnew ~/html/slickdeals/scripts/306/<args>
-function! JComplete(A,L,P)
-    let filelist = globpath($HOME."/html/slickdeals/scripts/306", a:A."*.js")
-    let filelist = substitute(filelist, $HOME."/html/slickdeals/scripts/306/", "", "g")
-    return split(filelist, "\n")
-endfun
-
-command! -nargs=1 -complete=customlist,CComplete C tabnew ~/html/slickdeals/css/306/<args>
-function! CComplete(A,L,P)
-    let filelist = globpath($HOME."/html/slickdeals/css/306", a:A."*.css")
-    let filelist = substitute(filelist, $HOME."/html/slickdeals/css/306/", "", "g")
-    return split(filelist, "\n")
-endfun
-
-command! -nargs=1 -complete=customlist,TComplete T tabnew ~/html/slickdeals/sdincludes/templates/MASTER/<args>
-function! TComplete(A,L,P)
-    let filestr = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER", "**/".a:A."*.html")
-    let filestr = substitute(filestr, $HOME."/html/slickdeals/sdincludes/templates/MASTER/", "", "g")
-    let filelist = split(filestr, "\n")
-    call filter(filelist, 'match(v:val, "/Classic/") == -1')
-    call filter(filelist, 'match(v:val, "/Tablet/") == -1')
-    call filter(filelist, 'match(v:val, "/Midnight/") == -1')
-    call filter(filelist, 'match(v:val, "/Mobile/") == -1')
-    call filter(filelist, 'match(v:val, "SD1.0/") == -1')
-    call filter(filelist, 'match(v:val, "WAP1.0/") == -1')
-    return filelist
-endfun
-
-
 set autowrite
 set backspace=indent,eol,start
 set backupcopy=no
@@ -244,6 +208,45 @@ function! s:html_settings()
     setlocal softtabstop=2
     setlocal shiftwidth=2
 endfun
+
+
+""" Custom Commands
+
+command! -nargs=1 -complete=customlist,CComplete C tabnew ~/html/slickdeals/css/306/<args>
+function! CComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/css/306", a:A."*.css")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/css/306/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,JComplete J tabnew ~/html/slickdeals/scripts/306/<args>
+function! JComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/scripts/306", a:A."*.js")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/scripts/306/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,SComplete S tabnew ~/html/slickdeals/sdincludes/<args>
+function! SComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes", a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,TComplete T tabnew ~/html/slickdeals/sdincludes/templates/MASTER/<args>
+function! TComplete(A,L,P)
+    let filestr = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER", "**/".a:A."*.html")
+    let filestr = substitute(filestr, $HOME."/html/slickdeals/sdincludes/templates/MASTER/", "", "g")
+    let filelist = split(filestr, "\n")
+    call filter(filelist, 'match(v:val, "/Classic/") == -1')
+    call filter(filelist, 'match(v:val, "/Tablet/") == -1')
+    call filter(filelist, 'match(v:val, "/Midnight/") == -1')
+    call filter(filelist, 'match(v:val, "/Mobile/") == -1')
+    call filter(filelist, 'match(v:val, "SD1.0/") == -1')
+    call filter(filelist, 'match(v:val, "WAP1.0/") == -1')
+    return filelist
+endfun
+
 
 """ Plugins
 
