@@ -95,6 +95,7 @@ endif
 "" Keybinds
 
 let mapleader=","
+map ; :
 
 " Easier diffget
 if &diff
