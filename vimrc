@@ -7,7 +7,6 @@ set history=50
 set incsearch
 set laststatus=2
 set mouse=a
-set noautoindent
 set nobackup
 set nocompatible
 set nolist
@@ -150,6 +149,10 @@ nnoremap K <nop>
 nnoremap <silent> <leader>d "_d
 vnoremap <silent> <leader>d "_d
 
+" Show NERDTree
+noremap <silent> <F2> :NERDTreeToggle<CR>
+inoremap <silent> <F2> :NERDTreeToggle<CR>
+
 " Ctrl+S to save
 nmap <C-s> :write!<CR>
 imap <C-s> <C-o>:write!<CR>
@@ -211,6 +214,67 @@ function! s:html_settings()
 endfun
 
 
+""" Custom Commands
+
+command! -nargs=1 -complete=customlist,CComplete C tabnew ~/html/slickdeals/css/306/<args> <Bar> cd ~/html/slickdeals
+function! CComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/css/306", a:A."*.css")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/css/306/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,CSComplete CS tabnew ~/html/slickdeals/clientscript/<args> <Bar> cd ~/html/slickdeals
+function! CSComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/clientscript", a:A."*.js")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/clientscript/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,JComplete J tabnew ~/html/slickdeals/scripts/306/<args> <Bar> cd ~/html/slickdeals
+function! JComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/scripts/306", a:A."*.js")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/scripts/306/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,IComplete I tabnew ~/html/slickdeals/forums/includes/<args> <Bar> cd ~/html/slickdeals
+function! IComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/forums/includes", "**/".a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/forums/includes/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,FComplete F tabnew ~/html/slickdeals/forums/<args> <Bar> cd ~/html/slickdeals
+function! FComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/forums", a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/forums/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,SComplete S tabnew ~/html/slickdeals/sdincludes/<args> <Bar> cd ~/html/slickdeals
+function! SComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes", a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,TComplete T tabnew ~/html/slickdeals/sdincludes/templates/MASTER/<args> <Bar> cd ~/html/slickdeals
+function! TComplete(A,L,P)
+    let filestr = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER", "**/".a:A."*.html")
+    let filestr = substitute(filestr, $HOME."/html/slickdeals/sdincludes/templates/MASTER/", "", "g")
+    let filelist = split(filestr, "\n")
+    call filter(filelist, 'match(v:val, "/Classic/") == -1')
+    call filter(filelist, 'match(v:val, "/Ice/") == -1')
+    call filter(filelist, 'match(v:val, "/Midnight/") == -1')
+    call filter(filelist, 'match(v:val, "/Mobile/") == -1')
+    call filter(filelist, 'match(v:val, "/RSS/") == -1')
+    call filter(filelist, 'match(v:val, "/Tablet/") == -1')
+    call filter(filelist, 'match(v:val, "SD1.0/") == -1')
+    call filter(filelist, 'match(v:val, "WAP1.0/") == -1')
+    return filelist
+endfun
+
+
 """ Plugins
 
 " Taglist
@@ -224,10 +288,11 @@ let g:Tlist_Auto_Open=0
 " let g:SuperTabLongestHighlight=1
 " let g:SuperTabDefaultCompletionType='context'
 
+" NERDTree
+let NERDTreeQuitOnOpen=1
+
 " SmartHome
 noremap [1~ :SmartHomeKey<CR>
 inoremap [1~ <C-o>:SmartHomeKey<CR>
 
 call pathogen#infect()
-
-source ~/.vim/localrc
