@@ -296,3 +296,7 @@ noremap [1~ :SmartHomeKey<CR>
 inoremap [1~ <C-o>:SmartHomeKey<CR>
 
 call pathogen#infect()
+
+if filereadable($HOME."/.vim/localrc")
+    source ~/.vim/localrc
+endif
