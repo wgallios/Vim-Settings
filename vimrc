@@ -75,7 +75,7 @@ set statusline+=)
 " Line and column position and counts.
 set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
-if &term == "screen"
+if &term == "screen" || &term == "screen-256color"
     set t_ts=k
     set t_fs=\
     set ttymouse=xterm2
@@ -121,19 +121,20 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
 " Quick word jumping with Ctrl+Arrows
-inoremap <C-[>[A <Up>
-inoremap <C-[>[B <Down>
-inoremap <C-[>[C <S-Right>
-inoremap <C-[>[D <S-Left>
 
-nnoremap <C-[>[A <Up>
-nnoremap <C-[>[B <Down>
-nnoremap <C-[>[C <S-Right>
-nnoremap <C-[>[D <S-Left>
+inoremap <Esc>[A <Up>
+inoremap <Esc>[B <Down>
+inoremap <Esc>[C <S-Right>
+inoremap <Esc>[D <S-Left>
+
+nnoremap <Esc>[A <Up>
+nnoremap <Esc>[B <Down>
+nnoremap <Esc>[C <S-Right>
+nnoremap <Esc>[D <S-Left>
 
 " Tab movement keys
-nnoremap <Right> :tabn<CR>
-nnoremap <Left> :tabp<CR>
+nnoremap <silent> <Esc><Right> :tabn<CR>
+nnoremap <silent> <Esc><Left> :tabp<CR>
 
 " Change Y to copy from current character to end of line
 " (mimic y0's behavior but backwards)
@@ -151,7 +152,7 @@ nnoremap <silent> <leader>d "_d
 vnoremap <silent> <leader>d "_d
 
 " Show NERDTree
-noremap <silent> <F2> :NERDTreeToggle<CR>
+noremap  <silent> <F2> :NERDTreeToggle<CR>
 inoremap <silent> <F2> :NERDTreeToggle<CR>
 
 " Ctrl+S to save
@@ -170,7 +171,7 @@ endfun
 
 nmap <silent> _$ :call Preserve("%s/\\s\\+$//e")<CR><C-l>
 
-" Fix numpad over some SSH connections
+" Fix keys over some SSH connections
 inoremap <Esc>Oq 1
 inoremap <Esc>Or 2
 inoremap <Esc>Os 3
@@ -187,6 +188,12 @@ inoremap <Esc>OQ /
 inoremap <Esc>Ol +
 inoremap <Esc>OS -
 
+noremap  <Esc>[1~ <Home>
+cnoremap <Esc>[1~ <Home>
+
+noremap  <Esc>[4~ <End>
+cnoremap <Esc>[4~ <End>
+inoremap <Esc>[4~ <End>
 
 "" Auto Commands
 
@@ -199,8 +206,8 @@ au VimResized * exe "normal! \<c-w>="
 " au InsertLeave * let &updatetime=updaterestore
 
 " Special vb template binds
-au BufRead */templates/*.html           call s:template_binds()
-au BufNewFile,BufRead *.html            call s:html_settings()
+au BufNewFile,BufRead */templates/*.html   call s:template_binds()
+au BufNewFile,BufRead *.html               call s:html_settings()
 
 function! s:template_binds()
     setlocal makeprg=clear;php\ ~/bin/update_templates.php\ %:p
@@ -259,6 +266,13 @@ function! SComplete(A,L,P)
     return split(filelist, "\n")
 endfun
 
+command! -nargs=1 -complete=customlist,MComplete M tabnew ~/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile/<args> <Bar> cd ~/html/slickdeals
+function! MComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile", a:A."*.html")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile/", "", "g")
+    return split(filelist, "\n")
+endfun
+
 command! -nargs=1 -complete=customlist,TComplete T tabnew ~/html/slickdeals/sdincludes/templates/MASTER/<args> <Bar> cd ~/html/slickdeals
 function! TComplete(A,L,P)
     let filestr = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER", "**/".a:A."*.html")
@@ -266,6 +280,7 @@ function! TComplete(A,L,P)
     let filelist = split(filestr, "\n")
     call filter(filelist, 'match(v:val, "/Classic/") == -1')
     call filter(filelist, 'match(v:val, "/Ice/") == -1')
+    call filter(filelist, 'match(v:val, "/JQMobile/") == -1')
     call filter(filelist, 'match(v:val, "/Midnight/") == -1')
     call filter(filelist, 'match(v:val, "/Mobile/") == -1')
     call filter(filelist, 'match(v:val, "/RSS/") == -1')
@@ -293,8 +308,8 @@ let g:Tlist_Auto_Open=0
 let NERDTreeQuitOnOpen=1
 
 " SmartHome
-noremap [1~ :SmartHomeKey<CR>
-inoremap [1~ <C-o>:SmartHomeKey<CR>
+noremap  <silent> [1~ :SmartHomeKey<CR>
+inoremap <silent> [1~ <C-o>:SmartHomeKey<CR>
 
 call pathogen#infect()
 

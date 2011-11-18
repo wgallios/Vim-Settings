@@ -249,11 +249,14 @@ if version >= 508 || !exists("did_html_syn_inits")
     if !exists("html_my_rendering")
       hi def htmlBold                term=bold cterm=bold gui=bold
       hi def htmlBoldUnderline       term=bold,underline cterm=bold,underline gui=bold,underline
-      hi def htmlBoldItalic          term=bold,italic cterm=bold,italic gui=bold,italic
-      hi def htmlBoldUnderlineItalic term=bold,italic,underline cterm=bold,italic,underline gui=bold,italic,underline
+      "hi def htmlBoldItalic          term=bold,italic cterm=bold,italic gui=bold,italic
+      hi def htmlBoldItalic          term=bold cterm=bold gui=bold
+      "hi def htmlBoldUnderlineItalic term=bold,italic,underline cterm=bold,italic,underline gui=bold,italic,underline
+      hi def htmlBoldUnderlineItalic term=bold,underline cterm=bold,underline gui=bold,underline
       hi def htmlUnderline           term=underline cterm=underline gui=underline
-      hi def htmlUnderlineItalic     term=italic,underline cterm=italic,underline gui=italic,underline
-      hi def htmlItalic              term=italic cterm=italic gui=italic
+      "hi def htmlUnderlineItalic     term=italic,underline cterm=italic,underline gui=italic,underline
+      hi def htmlUnderlineItalic     term=underline cterm=underline gui=underline
+      "hi def htmlItalic              term=italic cterm=italic gui=italic
     endif
   endif
   
