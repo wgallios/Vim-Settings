@@ -210,12 +210,17 @@ fun! HtmlIndentGet(lnum)
     "
     if 0 < searchpair(js, '', '</script>', 'nWb') && 0 < searchpair(js, '', '</script>', 'nW')
         " we're inside javascript
-        if getline(lnum) !~ js && getline(a:lnum) != '</script>'
+        if getline(lnum) !~ js && getline(a:lnum) !~ '</script>$'
             if restore_ic == 0
               setlocal noic
             endif
             return GetJsIndent(a:lnum)
             "return cindent(a:lnum)
+        elseif getline(a:lnum) =~ '</script>$'
+            let jsline = prevnonblank(search('\c<script', 'bW'))
+            if jsline > 0
+                return indent(jsline)
+            endif
         endif
     endif
 
@@ -234,6 +239,10 @@ fun! HtmlIndentGet(lnum)
 
     let ind = <SID>HtmlIndentSum(lnum, -1)
     let ind = ind + <SID>HtmlIndentSum(a:lnum, 0)
+
+    if getline(a:lnum) =~ '</script>$' && getline(a:lnum) !~ js
+        let ind = ind - 1
+    endif
 
     if getline(a:lnum) =~ '<else />$'
         let ind = ind - 1
