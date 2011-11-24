@@ -1,0 +1,3 @@
+[submodule "bundle/tabman"]
+	path = bundle/tabman
+	url = http://github.com/kien/tabman.vim.git
