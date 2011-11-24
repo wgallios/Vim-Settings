@@ -107,8 +107,8 @@ if &diff
     nnoremap <Leader>d] :diffget 3
 endif
 
-" ,/ clears search highlight
-nnoremap <silent> <Leader>/ :noh<CR>
+" // clears search highlight
+nnoremap <silent> // :noh<CR>
 
 " Space toggles folds
 nnoremap <Space> za
@@ -160,6 +160,9 @@ noremap <silent> <F2> :NERDTreeToggle<CR>
 
 " Show Tabman
 noremap <silent> <F3> :TMToggle<CR>
+
+" Show Function List
+noremap <silent> <F4> :Flisttoggle<CR>
 
 " Save session
 noremap <silent> <F5> :wa <Bar> mksession! ~/.vim/session <Bar> echo "Saved session"<CR>
