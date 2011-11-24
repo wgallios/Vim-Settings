@@ -6,11 +6,13 @@ set backupcopy=no
 set history=50
 set incsearch
 set laststatus=2
+set list
+set listchars=tab:>-,trail:-
 set mouse=a
 set nobackup
 set nocindent
 set nocompatible
-set nolist
+set noignorecase
 set ruler
 set scrolloff=5
 set shell=/bin/bash
