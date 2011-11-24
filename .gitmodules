@@ -3,4 +3,4 @@
 	url = http://github.com/kien/tabman.vim.git
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
-	url = git@github.com:magus424/nerdtree.git
+	url = http://github.com/magus424/nerdtree.git
