@@ -15,10 +15,12 @@ set nocompatible
 set noignorecase
 set ruler
 set scrolloff=5
+set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
 set shell=/bin/bash
 set showcmd
 set showmatch
 set showmode
+set showtabline=2
 set splitright
 set textwidth=0
 set title
@@ -105,8 +107,8 @@ if &diff
     nnoremap <Leader>d] :diffget 3
 endif
 
-" // clears search highlight
-nnoremap <silent> // :noh<CR>
+" ,/ clears search highlight
+nnoremap <silent> <Leader>/ :noh<CR>
 
 " Space toggles folds
 nnoremap <Space> za
@@ -154,12 +156,21 @@ nnoremap <silent> <leader>d "_d
 vnoremap <silent> <leader>d "_d
 
 " Show NERDTree
-noremap  <silent> <F2> :NERDTreeToggle<CR>
-inoremap <silent> <F2> :NERDTreeToggle<CR>
+noremap <silent> <F2> :NERDTreeToggle<CR>
+
+" Show Tabman
+noremap <silent> <F3> :TMToggle<CR>
+
+" Save session
+noremap <silent> <F5> :wa <Bar> mksession! ~/.vim/session <Bar> echo "Saved session"<CR>
 
 " Ctrl+S to save
 nmap <C-s> :write!<CR>
 imap <C-s> <C-o>:write!<CR>
+
+" Remove annoying default Ctrl+B behavior
+nmap <C-b> <nop>
+imap <C-b> <nop>
 
 " Map _$ to trim whitespace on the end of lines
 function! Preserve(command)
