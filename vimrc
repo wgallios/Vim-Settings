@@ -236,6 +236,7 @@ function! s:html_settings()
     setlocal tabstop=2
     setlocal softtabstop=2
     setlocal shiftwidth=2
+    setlocal textwidth=0
 endfun
 
 
@@ -280,6 +281,13 @@ command! -nargs=1 -complete=customlist,SComplete S tabnew ~/html/slickdeals/sdin
 function! SComplete(A,L,P)
     let filelist = globpath($HOME."/html/slickdeals/sdincludes", a:A."*.php")
     let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,GComplete G tabnew ~/html/slickdeals/sdincludes/grabbers/<args> <Bar> cd ~/html/slickdeals
+function! GComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes/grabbers", a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/grabbers/", "", "g")
     return split(filelist, "\n")
 endfun
 
