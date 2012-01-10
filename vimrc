@@ -50,6 +50,9 @@ syntax on
 colorscheme default
 set background=dark
 
+" fix diff colors
+highlight DiffText ctermbg=1
+
 if has("autocmd")
     filetype plugin on
     filetype indent on
@@ -90,9 +93,9 @@ endif
 
 " We know xterm-debian is a color terminal
 if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
-  set t_Co=16
-  set t_Sf=[3%dm
-  set t_Sb=[4%dm
+    set t_Co=16
+    set t_Sf=[3%dm
+    set t_Sb=[4%dm
 endif
 
 
@@ -241,6 +244,18 @@ endfun
 
 
 """ Custom Commands
+
+command! CodingStandards call RunCodingStandards()
+function RunCodingStandards()
+    call Preserve("%s/if(/if (/e")
+    call Preserve("%s/for(/for (/e")
+    call Preserve("%s/switch(/switch (/e")
+    call Preserve("%s/foreach(/foreach (/e")
+    call Preserve("%s/while(/while (/e")
+    call Preserve("%s/\\s\\+$//e")
+    call Preserve("normal gg=G")
+    retab
+endfun
 
 command! -nargs=1 -complete=customlist,CComplete C tabnew ~/html/slickdeals/css/306/<args> <Bar> cd ~/html/slickdeals
 function! CComplete(A,L,P)
