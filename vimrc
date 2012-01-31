@@ -246,7 +246,8 @@ endfun
 """ Custom Commands
 
 command! CodingStandards call RunCodingStandards()
-function RunCodingStandards()
+function! RunCodingStandards()
+    call Preserve("%s/\\(\\S\\)\\s{$/\\1\\r{/")
     call Preserve("%s/if(/if (/e")
     call Preserve("%s/for(/for (/e")
     call Preserve("%s/switch(/switch (/e")
