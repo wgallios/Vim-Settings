@@ -248,14 +248,16 @@ endfun
 command! CodingStandards call RunCodingStandards()
 function! RunCodingStandards()
     call Preserve("%s/\\(\\S\\)\\s{$/\\1\\r{/")
-    call Preserve("%s/if(/if (/e")
-    call Preserve("%s/for(/for (/e")
-    call Preserve("%s/switch(/switch (/e")
-    call Preserve("%s/foreach(/foreach (/e")
-    call Preserve("%s/while(/while (/e")
+    call Preserve("%s/\\Cif(/if (/e")
+    call Preserve("%s/\\Cfor(/for (/e")
+    call Preserve("%s/\\Cswitch(/switch (/e")
+    call Preserve("%s/\\Cforeach(/foreach (/e")
+    call Preserve("%s/\\Cwhile(/while (/e")
     call Preserve("%s/\\s\\+$//e")
     call Preserve("normal gg=G")
+    call Preserve("v/./,/./-j")
     retab
+    nohlsearch
 endfun
 
 command! -nargs=1 -complete=customlist,CComplete C tabnew ~/html/slickdeals/css/306/<args> <Bar> cd ~/html/slickdeals
