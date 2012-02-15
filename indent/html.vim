@@ -12,9 +12,9 @@
 "endif
 "let b:did_indent = 1
 
-if exists("g:js_indent") 
+if exists("g:js_indent")
     so g:js_indent
-else 
+else
     ru! indent/javascript.vim
 endif
 

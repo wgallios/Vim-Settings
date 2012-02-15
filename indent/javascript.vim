@@ -1,403 +1,377 @@
-" Vim indent file Language:		JavaScript
-" Author: 		Preston Koprivica (pkopriv2@gmail.com)	
-" URL:
-" Last Change: 	April 30, 2010
+" Vim indent file
+" Language:     JavaScript
+" Maintainer:   JiangMiao <jiangfriend@gmail.com>
+" Last Change:  2011-10-19
+" Version: 1.4.6
+" Homepage: http://www.vim.org/scripts/script.php?script_id=3227
+" Repository: https://github.com/jiangmiao/simple-javascript-indenter
 
-" 0. Standard Stuff
-" =================
-
-" Only load one indent script per buffer
 if exists('b:did_indent')
-    finish
+  finish
+endif
+
+" Disable Assginment let script will not indent assignment.
+if(!exists('g:SimpleJsIndenter_DisableAssignment'))
+  let g:SimpleJsIndenter_DisableAssignment = 0
+endif
+
+" Brief Mode will indent no more than one level.
+if(!exists('g:SimpleJsIndenter_BriefMode'))
+  let g:SimpleJsIndenter_BriefMode = 0
+endif
+
+" The value should be float, -1/2 should be written in -0.5
+if(!exists('g:SimpleJsIndenter_CaseIndentLevel'))
+  let g:SimpleJsIndenter_CaseIndentLevel = 0
 endif
 
 let b:did_indent = 1
+let b:indented = 0
+let b:in_comment = 0
 
-" Set the global log variable 1 = logging enabled, 0 = logging disabled
-if !exists("g:js_indent_log")
-    let g:js_indent_log = 0
+setlocal indentexpr=GetJsIndent()
+setlocal indentkeys+==},=),=],0=*/,0=/*,*<Return>
+if exists("*GetJsIndent")
+  finish
 endif
 
-setlocal indentexpr=GetJsIndent(v:lnum)
-setlocal indentkeys=
+let s:expr_left  = '[[{(]'
+let s:expr_right = '[)}\]]'
+let s:expr_all   = '[[{()}\]]'
 
-setlocal cindent
-setlocal autoindent
+let s:expr_case          = '\s\+\(case\s\+[^\:]*\|default\)\s*:\s*'
+let s:expr_comment_start = '/\*c'
+let s:expr_comment_end   = 'c\*/'
+
+" Check prev line
+function! DoIndentPrev(ind,str)
+  let ind = a:ind
+  let pline = a:str
+  let first = 1
+  let last = 0
+  let mstr = matchstr(pline, '^'.s:expr_right.'*')
+  let last = strlen(mstr)
+  let start_with_expr_right = last
+  let ind_add = 0
+  let ind_dec = 0
+  while 1
+    let last=match(pline, s:expr_all, last)
+    if last == -1
+      break
+    endif
+    let str = pline[last]
+    let last = last + 1
+
+    if match(str, s:expr_left) != -1
+      let ind_add += 1
+    else
+      if start_with_expr_right == 0
+        let ind_dec += 1
+      endif
+    endif
+
+  endwhile
 
 
-" 1. Variables
-" ============
+  "BriefMode
+  if(g:SimpleJsIndenter_BriefMode)
+    if ind_add > 1
+      let ind_add = 1
+    endif
 
-" Inline comments (for anchoring other statements)
-let s:js_mid_line_comment = '\s*\(\/\*.*\*\/\)*\s*'
-let s:js_end_line_comment = s:js_mid_line_comment . '\s*\(//.*\)*'
-let s:js_line_comment = s:js_end_line_comment
+    if ind_dec > 1
+      let ind_dec = 1
+    endif
+  endif
+  let ind = a:ind + (ind_add - ind_dec) * &sw
 
-" Comment/String Syntax Key
-let s:syn_comment = '\(Comment\|String\|Regexp\)'
+  if (match(' '.pline, s:expr_case)!=-1)
+    let ind = float2nr(ind - &sw * g:SimpleJsIndenter_CaseIndentLevel)
+  endif
+
+  if match(pline, s:expr_comment_start) != -1
+    let ind = ind + 1
+  endif
+
+  if match(pline, s:expr_comment_end) != -1
+    let ind = ind - 1
+  endif
 
 
-" 2. Aux. Functions
-" =================
-
-" = Method: IsInComment
-"
-" Determines whether the specified position is contained in a comment. "Note:
-" This depends on a 
-function! s:IsInComment(lnum, cnum)
-    return synIDattr(synID(a:lnum, a:cnum, 1), 'name') =~? s:syn_comment
+  return ind
 endfunction
 
 
-" = Method: IsComment
-" 
-" Determines whether a line is a comment or not.
-function! s:IsComment(lnum)
-    let line = getline(a:lnum)
+" Check current line
+function! DoIndent(ind, str)
+  let ind = a:ind
+  let line = a:str
+  let last = 0
+  let first = 1
+  let mstr = matchstr(line, '^'.s:expr_right.'*')
+  let num = strlen(mstr)
+  let start_with_expr_right = num
+  " If start with expr right, then indent as more as possible.
+  if start_with_expr_right
+    let num = len(split(line, s:expr_right, 1)) - 1
+  end
+  let ind = ind - &sw * num
 
-    return s:IsInComment(a:lnum, 1) && s:IsInComment(a:lnum, strlen(line)) "Doesn't absolutely work.  Only Probably!
+
+  "BriefMode
+  if(g:SimpleJsIndenter_BriefMode)
+    if(ind<a:ind)
+      let ind = a:ind - &sw
+    endif
+    if(ind>a:ind)
+      let ind = a:ind + &sw
+    endif
+  endif
+
+
+  if (match(' '.line, s:expr_case)!=-1)
+    let ind = float2nr(ind + &sw * g:SimpleJsIndenter_CaseIndentLevel)
+  endif
+
+  if ind<0
+    let ind=0
+  endif
+
+  return ind
 endfunction
 
+" Remove strings and comments
+function! TrimLine(pline)
+  let line = substitute(a:pline, '\\\\', '_','g')
+  let line = substitute(line, '\\.', '_','g')
+  " One line comment
+  let line = substitute(line, '^\s*/\*.*\*/\s*$', '//c', 'g')
+  let line = substitute(line, '^\s*//.*$', '//c', 'g')
+  " remove all non ascii character
+  let line = substitute(line, '[^\x00-\x7f]', '', 'g')
 
-" = Method: GetNonCommentLine
-"
-" Grabs the nearest non-commented line
-function! s:GetNonCommentLine(lnum)
-    let lnum = prevnonblank(a:lnum)
+  " Strings
+  let new_line = ''
+  let sub_line = ''
+  let min_pos = 0
+  while 1
+    let c = ''
+    let base_pos = min_pos
+    let min_pos = match(line, '[''"/]', base_pos)
+    if min_pos == -1
+      let new_line .= strpart(line, base_pos)
+      break
+    endif
+    let c = line[min_pos]
 
-    while lnum > 0
-        if s:IsComment(lnum)
-            let lnum = prevnonblank(lnum - 1)
-        else
-            return lnum
+    let new_line .= strpart(line, base_pos, min_pos - base_pos)
+    let sub_line = ''
+
+    if c == ''''
+      let sub_line = matchstr(line, "^'.\\{-}'", min_pos)
+      if sub_line != ''
+        let new_line .= '_'
+      endif
+    elseif c == '"'
+      let sub_line = matchstr(line, '^".\{-}"', min_pos)
+      if sub_line != ''
+        let new_line .= '_'
+      endif
+    elseif c == '/'
+      " Skip all if match a comment
+      if line[min_pos+1] == '/'
+        let sub_line = matchstr(line, '^/.*', min_pos)
+        if min_pos == 0 && sub_line != ''
+          let new_line = '//c'
+          break
         endif
-    endwhile
-
-    return lnum
-endfunction
-
-" = Method: SearchForPair
-"
-" Returns the beginning tag of a given pair starting from the given line.
-function! s:SearchForPair(lnum, beg, end)
-    " Save the cursor position.
-    let curpos = getpos(".")
-
-    " Set the cursor position to the beginning of the line (default
-    " behavior when using ==)
-    call cursor(a:lnum, 0)
-
-    " Search for the opening tag
-    let mnum = searchpair(a:beg, '', a:end, 'bW', 
-                \ 'synIDattr(synID(line("."), col("."), 0), "name") =~? s:syn_comment' )
-
-    "Restore the cursor position
-    call cursor(curpos)
-
-    " Finally, return the matched line number
-    return mnum
-endfunction
-
-
-" Object Helpers
-" ==============
-let s:object_beg = '{[^}]*' . s:js_end_line_comment . '$'
-let s:object_end = '^' . s:js_mid_line_comment . '}[;,]\='
-
-function! s:IsObjectBeg(line)
-    return a:line =~ s:object_beg
-endfunction
-
-function! s:IsObjectEnd(line)
-    return a:line =~ s:object_end
-endfunction 
-
-function! s:GetObjectBeg(lnum)
-    return s:SearchForPair(a:lnum, '{', '}')
-endfunction
-
-
-" Array Helpers
-" ==============
-let s:array_beg = '\[[^\]]*' . s:js_end_line_comment . '$'
-let s:array_end = '^' . s:js_mid_line_comment . '[^\[]*\][;,]*' . s:js_end_line_comment . '$'
-
-function! s:IsArrayBeg(line)
-    return a:line =~ s:array_beg
-endfunction
-
-function! s:IsArrayEnd(line)
-    return a:line =~ s:array_end
-endfunction 
-
-function! s:GetArrayBeg(lnum)
-    return s:SearchForPair(a:lnum, '\[', '\]')
-endfunction
-
-
-" MultiLine Declaration/Invocation Helpers
-" ========================================
-let s:paren_beg = '([^)]*' . s:js_end_line_comment . '$'
-let s:paren_end = '^' . s:js_mid_line_comment . '[^(]*)[;,]*'
-
-function! s:IsParenBeg(line)
-    return a:line =~ s:paren_beg
-endfunction
-
-function! s:IsParenEnd(line)
-    return a:line =~ s:paren_end
-endfunction 
-
-function! s:GetParenBeg(lnum)
-    return s:SearchForPair(a:lnum, '(', ')')
-endfunction
-
-
-" Continuation Helpers
-" ====================
-let s:continuation = '\(+\|\\\)\{1}' . s:js_line_comment . '$' 
-
-function! s:IsContinuationLine(line)
-    return a:line =~ s:continuation
-endfunction
-
-function! s:GetContinuationBegin(lnum) 
-    let cur = a:lnum
-
-    while s:IsContinuationLine(getline(cur)) 
-        let cur -= 1
-    endwhile
-
-    return cur + 1
-endfunction 
-
-
-" Switch Helpers
-" ==============
-let s:switch_beg_next_line = 'switch\s*(.*)\s*' . s:js_mid_line_comment . s:js_end_line_comment . '$'
-let s:switch_beg_same_line = 'switch\s*(.*)\s*' . s:js_mid_line_comment . '{\s*' . s:js_line_comment . '$'
-let s:switch_mid = '^.*\(case.*\|default\)\s*:\s*' 
-
-function! s:IsSwitchBeginNextLine(line) 
-    return a:line =~ s:switch_beg_next_line 
-endfunction
-
-function! s:IsSwitchBeginSameLine(line) 
-    return a:line =~ s:switch_beg_same_line 
-endfunction
-
-function! s:IsSwitchMid(line)
-    return a:line =~ s:switch_mid
-endfunction 
-
-
-" Control Helpers
-" ===============
-let s:cntrl_beg_keys = '\(\(\(if\|for\|with\|while\)\s*(.*)\)\|\(try\|do\)\)\s*'
-let s:cntrl_mid_keys = '\(\(\(else\s*if\|catch\)\s*(.*)\)\|\(finally\|else\)\)\s*'
-
-let s:cntrl_beg = s:cntrl_beg_keys . s:js_end_line_comment . '$' 
-let s:cntrl_mid = s:cntrl_mid_keys . s:js_end_line_comment . '$' 
-
-let s:cntrl_end = '\(while\s*(.*)\)\s*;\=\s*' . s:js_end_line_comment . '$'
-
-function! s:IsControlBeg(line)
-    return a:line =~ s:cntrl_beg
-endfunction
-
-function! s:IsControlMid(line)
-    return a:line =~ s:cntrl_mid
-endfunction
-
-function! s:IsControlMidStrict(line)
-    return a:line =~ s:cntrl_mid
-endfunction
-
-function! s:IsControlEnd(line)
-    return a:line =~ s:cntrl_end
-endfunction
-
-" = Method: Log
-"
-" Logs a message to the stdout.
-function! s:Log(msg)
-    if g:js_indent_log
-        echo "LOG: " . a:msg
+      elseif line[min_pos+1] == '*'
+        let sub_line = matchstr(line, '^/\*.\{-}\*/', min_pos)
+      else
+        " /.../ sometimes is not a regexp, (a / b); // c
+        let m = matchlist(line, '^\(/[^/]\+/\)\([^/]\|$\)', min_pos)
+        if len(m)
+          let new_line .= '_'
+          let sub_line = m[1]
+        endif
+      endif
     endif
+    if sub_line != ''
+      let min_pos = min_pos + strlen(sub_line)
+    else
+      let new_line .= c
+      let min_pos = min_pos + 1
+    endif
+  endwhile
+  let line = new_line
+
+  " Comment
+  let line = substitute(line, '/\*.*$','/*c','')
+  let line = substitute(line, '^.\{-}\*/','c*/','')
+  let line = substitute(line, '^\s*\*.*','','')
+
+  " Brackets
+  let new_line = ''
+  while new_line != line
+    let new_line = line
+    let line = substitute(line,'\(([^)(]*)\|\[[^\][]*\]\|{[^}{]*}\)','_','g')
+  endwhile
+
+  " Trim Blank
+  let line = matchlist(line, '\s*\(.\{-}\)\s*$')[1]
+
+  return line
+endfunction
+
+function! s:GetLine(num)
+  return TrimLine(getline(a:num))
+endfunction
+
+let s:expr_partial = '[+\-*/|&,]$'
+let s:expr_partial2 = '[+\-*/|&]$'
+function! s:IsPartial(line)
+  " Add IndentLoose for
+  " function a() {
+  "   test(["hello",
+  "     "world",
+  "     "a",
+  "     "b"
+  "   ]) // Failed
+  " }
+  return match(a:line, '\*/$') == -1 && match(a:line, s:expr_partial)!=-1 && ( match(a:line, s:expr_all)==-1 || s:IsOneLineIndentLoose(a:line) )
+endfunction
+
+function! s:IsComment(line)
+  return a:line =~ '^\s*//' || a:line =~ '^\s*/\*.*\*/\s*$'
+endfunction
+function! s:SearchBack(num)
+  let num = a:num
+  let new_num = num
+  let partial = 0
+  while 1
+    if new_num == 0
+      break
+    endif
+    let line = getline(new_num)
+    if !s:IsComment(line)
+      let line = TrimLine(line)
+      if !s:IsPartial(line)
+        if partial > 0
+          " Store line number to last partial
+          let num = partial
+        endif
+        break
+      endif
+      " Save the partial postion
+      let partial = new_num
+      if match(line, s:expr_all)!=-1
+        let num = new_num
+        break
+      endif
+    endif
+    let num = new_num
+    let new_num = num - 1
+  endwhile
+  return num
+endfunction
+
+function! s:AssignIndent(line)
+  let ind = 0
+  let line = a:line
+  let line = matchlist(line, '^\s*\(.\{-}\)\s*$')[1]
+
+  if(match(line,'.*=.*'.s:expr_partial2) != -1)
+    return ind + strlen(matchstr(line, '.*=\s*'))
+  elseif(match(line,'\(var\|return\)\s\+.*=\s*') != -1)
+    return ind + strlen(matchstr(line, '\(var\|return\)\s\+'))
+  elseif(match(line,'\(var\|return\)\s\+') != -1)
+    return ind + strlen(matchstr(line, '\(var\|return\)\s\+'))
+  elseif(match(line,'^\w\s\+=\s*.*[^,]$') != -1)
+    return ind + strlen(matchstr(line, '^\w\s\+=\s*'))
+  endif
+  return ind
+endfunction
+
+function! s:IsAssign(line)
+  return match(a:line, s:expr_all) == -1 && s:AssignIndent(a:line)>0
+endfunction
+
+function DoIndentAssign(ind, line)
+  return a:ind + s:AssignIndent(a:line)
+endfunction
+
+function! s:IsOneLineIndent(line)
+  return match(a:line, '^[})\]]*\s*\(if\|else\|while\|try\|catch\|finally\|for\|else\s\+if\)\s*_\=$') != -1
+endfunction
+
+function! s:IsOneLineIndentLoose(line)
+  " _\= equal _? in PCRE
+  return match(a:line, '^[})\]]*\s*\(if\|else\|while\|try\|catch\|finally\|for\|else\s\+if\)') != -1
 endfunction
 
 
-" 3. Indenter
-" ===========
-function! GetJsIndent(lnum)
-    " Grab the first non-comment line prior to this line
-    let pnum = s:GetNonCommentLine(a:lnum-1)
+function! GetJsIndent()
+  if v:lnum == 1
+    return 0
+  endif
+  let pnum = prevnonblank(v:lnum-1)
+  let pline = s:GetLine(pnum)
 
-    " First line, start at indent = 0
-    if pnum == 0
-        call s:Log("No, noncomment lines prior to the current line.")
-        return 0
-    endif
+  let ppnum = prevnonblank(pnum - 1)
+  let ppline = s:GetLine(ppnum)
 
-    " Grab the second non-comment line prior to this line
-    let ppnum = s:GetNonCommentLine(pnum-1)
-
-    call s:Log("Line: " . a:lnum)
-    call s:Log("PLine: " . pnum)
-    call s:Log("PPLine: " . ppnum)
-
-    " Grab the lines themselves.
-    let line = getline(a:lnum)
-    let pline = getline(pnum)
-    let ppline = getline(ppnum)
-
-    " Determine the current level of indentation
+  if ((s:IsPartial(pline)||s:IsComment(pline)) && pnum == v:lnum-1)||match(pline, s:expr_left)!=-1
+    let pnum = s:SearchBack(pnum)
     let ind = indent(pnum)
+    let pline = s:GetLine(pnum)
+    let ind = DoIndentPrev(ind, pline)
+    if(!g:SimpleJsIndenter_DisableAssignment)
+      if s:IsAssign(pline) && match(s:GetLine(v:lnum), s:expr_all)==-1
+        let ind = DoIndentAssign(ind, pline)
+      endif
+    endif
+  else
+    let fix = 1
+    " Ignore the comments
+    while s:IsComment(ppline)
+      let ppnum = prevnonblank(ppnum-1)
+      let ppline = s:GetLine(ppnum)
+      let fix += 1
+    endwhile
 
-
-    " Handle: Object Closers (ie }) 
-    " =============================
-    if s:IsObjectEnd(line) && !s:IsComment(a:lnum)
-        call s:Log("Line matched object end")
-
-        let obeg = s:GetObjectBeg(a:lnum)
-        let oind = indent(obeg)
-        let oline = getline(obeg)
-
-        call s:Log("The object beg was found at: " . obeg)
-        return oind
+    if s:IsPartial(ppline) && ppnum == pnum- fix
+      let pnum =  s:SearchBack(ppnum)
     endif
 
-    if s:IsObjectBeg(pline) 
-        call s:Log("Pline matched object beg")
-        return ind + &sw 
+    let ind = indent(pnum)
+    let pline = s:GetLine(pnum)
+    let ind = DoIndentPrev(ind, pline)
+
+    let ppnum = prevnonblank(pnum-1)
+    let ppline = s:GetLine(ppnum)
+    if s:IsOneLineIndent(pline) && match(s:GetLine(v:lnum), s:expr_all)==-1
+      let ind = ind + &sw
     endif
-
-
-    " Handle: Array Closer (ie ])
-    " ============================
-    if s:IsArrayEnd(line) && !s:IsComment(a:lnum)
-        call s:Log("Line matched array end")
-
-        let abeg = s:GetArrayBeg(a:lnum)
-        let aind = indent(abeg)
-
-        call s:Log("The array beg was found at: " . abeg)
-        return aind
+    if s:IsOneLineIndent(ppline)
+      let ind = ind - &sw
     endif
+  endif
 
-    if s:IsArrayBeg(pline) 
-        call s:Log("Pline matched array beg")
-        return ind + &sw 
-    endif
+  " If pline is indented, and ppline is partial then indent
+  " Fix for
+  " function() {
+  "   b( this,
+  "     a(),
+  "     d() );
+  " },
+  let real_pnum = prevnonblank(v:lnum-1)
+  if(real_pnum!=pnum)
+    let pline = s:GetLine(real_pnum)
+    let ind = DoIndentPrev(ind, pline)
+  endif
 
-    " Handle: Parens
-    " ==============
-    if s:IsParenEnd(line) && !s:IsComment(a:lnum)
-        call s:Log("Line matched paren end")
+  let line = s:GetLine(v:lnum)
+  let ind = DoIndent(ind, line)
 
-        let abeg = s:GetParenBeg(a:lnum)
-        let aind = indent(abeg)
-
-        call s:Log("The paren beg was found at: " . abeg)
-        return aind
-    endif
-
-    if s:IsParenBeg(pline) 
-        call s:Log("Pline matched paren beg")
-        return ind + &sw 
-    endif
-
-
-    " Handle: Continuation Lines. 
-    " ========================================================
-    if s:IsContinuationLine(pline) 
-        call s:Log('Pline is a continuation line.')
-
-        let cbeg = s:GetContinuationBegin(pnum)
-        let cind = indent(cbeg)
-
-        call s:Log('The continuation block begin found at: ' . cbeg)
-        return cind + &sw
-    endif
-
-    if s:IsContinuationLine(ppline)
-        call s:Log('PPline was a continuation line but pline wasnt.')
-        return ind - &sw
-    endif
-
-    " Handle: Switch Control Blocks
-    " =============================
-    if s:IsSwitchMid(pline) 
-        call s:Log("PLine matched switch cntrl mid")
-        if s:IsSwitchMid(line) || s:IsObjectEnd(line)
-            call s:Log("Line matched a cntrl mid")
-            return ind
-        else
-            call s:Log("Line didnt match a cntrl mid")
-            return ind + &sw
-        endif 
-    endif
-
-    if s:IsSwitchMid(line)
-        call s:Log("Line matched switch cntrl mid")
-        return ind - &sw
-    endif
-
-
-    " Handle: Single Line Control Blocks
-    " ==================================
-    if s:IsControlBeg(pline)
-        call s:Log("Pline matched control beginning")
-
-        if s:IsControlMid(line)
-            call s:Log("Line matched a control mid")
-            return ind
-        elseif line =~ '^\s*{\s*$'
-            call s:Log("Line matched an object beg")
-            return ind
-        else
-            return ind + &sw
-        endif
-
-    endif
-
-    if s:IsControlMid(pline)
-        call s:Log("Pline matched a control mid")
-
-        if s:IsControlMid(line)
-            call s:Log("Line matched a control mid")
-            return ind
-        elseif s:IsObjectBeg(line)
-            call s:Log("Line matched an object beg")
-            return ind
-        else
-            call s:Log("Line didn't match a control mid or object beg."
-            return ind + &sw
-        endif
-    endif
-
-    if s:IsControlMid(line)
-        call s:Log("Line matched a control mid.")
-
-        if s:IsControlEnd(pline) || s:IsObjectEnd(pline)
-            call s:Log("PLine matched control end")
-            return ind
-        else
-            call s:Log("Pline didn't match object end")
-            return ind - &sw
-        endif
-    endif
-
-
-    if ( s:IsControlBeg(ppline) || s:IsControlMid(ppline) ) &&
-                \ !s:IsObjectBeg(pline) && !s:IsObjectEnd(pline)
-        call s:Log("PPLine matched single line control beg or mid")
-        return ind - &sw
-    endif
-
-    " Handle: No matches
-    " ==================
-    "call s:Log("Line didn't match anything.  Retaining indent")
-    return ind
+  return ind
 endfunction
