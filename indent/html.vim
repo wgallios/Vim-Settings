@@ -214,8 +214,8 @@ fun! HtmlIndentGet(lnum)
             if restore_ic == 0
               setlocal noic
             endif
-            return GetJsIndent(a:lnum)
-            "return cindent(a:lnum)
+            "return GetJsIndent(a:lnum)
+            return cindent(a:lnum)
         elseif getline(a:lnum) =~ '</script>$'
             let jsline = prevnonblank(search('\c<script', 'bW'))
             if jsline > 0
