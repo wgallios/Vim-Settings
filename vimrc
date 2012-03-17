@@ -56,6 +56,7 @@ highlight DiffText ctermbg=1
 if has("autocmd")
     filetype plugin on
     filetype indent on
+    let php_folding=1
     let php_sql_query=1
     let php_htmlInStrings=1
 endif
@@ -335,6 +336,10 @@ endfun
 
 
 """ Plugins
+
+" JS indenting
+
+let g:SimpleJsIndenter_BriefMode = 1
 
 " Taglist
 noremap <silent> ,t :TlistToggle<CR>
