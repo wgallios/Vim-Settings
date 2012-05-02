@@ -359,6 +359,11 @@ let NERDTreeQuitOnOpen=1
 noremap  <silent> [1~ :SmartHomeKey<CR>
 inoremap <silent> [1~ <C-o>:SmartHomeKey<CR>
 
+" TComment
+let g:tcommentGuessFileType_php = 'php'
+vmap C gc
+nmap C gcc
+
 call pathogen#infect()
 
 if filereadable($HOME."/.vim/localrc")
