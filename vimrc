@@ -103,7 +103,8 @@ endif
 "" Keybinds
 
 let mapleader=","
-map ; :
+nmap ; :
+vmap ; :
 
 " Easier diffget
 if &diff
@@ -361,8 +362,12 @@ inoremap <silent> [1~ <C-o>:SmartHomeKey<CR>
 
 " TComment
 let g:tcommentGuessFileType_php = 'php'
-vmap C gc
-nmap C gcc
+let g:tcommentMapLeader1 = ''
+let g:tcommentMapLeader2 = ''
+let g:tcommentMapLeaderOp1 = ''
+let g:tcommentMapLeaderOp2 = ''
+nmap C :TComment<CR>
+vmap C :TComment<CR>
 
 call pathogen#infect()
 
