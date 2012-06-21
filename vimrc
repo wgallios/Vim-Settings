@@ -249,7 +249,7 @@ endfun
 
 command! CodingStandards call RunCodingStandards()
 function! RunCodingStandards()
-    call Preserve("%s/\\(\\S\\)\\s{$/\\1\\r{/")
+    call Preserve("%s/\\(\\S\\)\\s*{$/\\1\\r{/")
     call Preserve("%s/\\Cif(/if (/e")
     call Preserve("%s/\\Cfor(/for (/e")
     call Preserve("%s/\\Cswitch(/switch (/e")
@@ -311,10 +311,24 @@ function! GComplete(A,L,P)
     return split(filelist, "\n")
 endfun
 
-command! -nargs=1 -complete=customlist,MComplete M tabnew ~/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile/<args> <Bar> cd ~/html/slickdeals
+command! -nargs=1 -complete=customlist,MComplete M tabnew ~/html/slickdeals/sdincludes/templates/MASTER/Hybrid/Mobile/<args> <Bar> cd ~/html/slickdeals
 function! MComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/Mobile", a:A."*.html")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/Mobile/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,JMComplete JM tabnew ~/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile/<args> <Bar> cd ~/html/slickdeals
+function! JMComplete(A,L,P)
     let filelist = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile", a:A."*.html")
     let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,PComplete P tabnew ~/html/phpunit/<args> <Bar> cd ~/html/slickdeals
+function! PComplete(A,L,P)
+    let filelist = globpath($HOME."/html/phpunit", a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/phpunit/", "", "g")
     return split(filelist, "\n")
 endfun
 
