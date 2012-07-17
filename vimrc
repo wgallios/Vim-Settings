@@ -150,7 +150,9 @@ nnoremap <silent> <Esc><Left> :tabp<CR>
 noremap Y y$
 
 " Make p in Visual mode replace the selected text with the "" register.
-vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+" vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+vnoremap p "_dP
+vnoremap P "_dP
 
 " Disable man key
 nnoremap K <nop>
