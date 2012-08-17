@@ -251,6 +251,7 @@ endfun
 
 command! CodingStandards call RunCodingStandards()
 function! RunCodingStandards()
+    retab
     call Preserve("%s/\\(\\S\\)\\s*{$/\\1\\r{/")
     call Preserve("%s/\\Cif(/if (/e")
     call Preserve("%s/\\Cfor(/for (/e")
@@ -261,7 +262,6 @@ function! RunCodingStandards()
     call Preserve("%s/\\s\\+$//e")
     call Preserve("normal gg=G")
     call Preserve("v/./,/./-j")
-    retab
     nohlsearch
 endfun
 
@@ -328,6 +328,13 @@ function! JMComplete(A,L,P)
     return split(filelist, "\n")
 endfun
 
+command! -nargs=1 -complete=customlist,NMComplete NM tabnew ~/html/slickdeals/sdincludes/templates/MASTER/Hybrid/NewMobile/<args> <Bar> cd ~/html/slickdeals
+function! NMComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/NewMobile", a:A."*.html")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/NewMobile/", "", "g")
+    return split(filelist, "\n")
+endfun
+
 command! -nargs=1 -complete=customlist,PComplete P tabnew ~/html/phpunit/<args> <Bar> cd ~/html/slickdeals
 function! PComplete(A,L,P)
     let filelist = globpath($HOME."/html/phpunit", a:A."*.php")
@@ -343,6 +350,7 @@ function! TComplete(A,L,P)
     call filter(filelist, 'match(v:val, "/Classic/") == -1')
     call filter(filelist, 'match(v:val, "/Ice/") == -1')
     call filter(filelist, 'match(v:val, "/JQMobile/") == -1')
+    call filter(filelist, 'match(v:val, "/NewMobile/") == -1')
     call filter(filelist, 'match(v:val, "/Midnight/") == -1')
     call filter(filelist, 'match(v:val, "/Mobile/") == -1')
     call filter(filelist, 'match(v:val, "/RSS/") == -1')
@@ -356,8 +364,12 @@ endfun
 """ Plugins
 
 " JS indenting
+" let g:SimpleJsIndenter_BriefMode = 1
 
-let g:SimpleJsIndenter_BriefMode = 1
+" New JS/HTML indenting
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1  = "inc"
 
 " Taglist
 noremap <silent> ,t :TlistToggle<CR>
