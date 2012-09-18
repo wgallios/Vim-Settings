@@ -57,7 +57,7 @@ if has("autocmd")
     filetype plugin on
     filetype indent on
     let php_folding=1
-    let php_sql_query=1
+    " let php_sql_query=1
     let php_htmlInStrings=1
 endif
 
@@ -131,13 +131,13 @@ vnoremap <S-Tab> <gv
 
 " Quick word jumping with Ctrl+Arrows
 
-inoremap <Esc>[A <Up>
-inoremap <Esc>[B <Down>
+inoremap <Esc>[A {
+inoremap <Esc>[B }
 inoremap <Esc>[C <S-Right>
 inoremap <Esc>[D <S-Left>
 
-nnoremap <Esc>[A <Up>
-nnoremap <Esc>[B <Down>
+nnoremap <Esc>[A {
+nnoremap <Esc>[B }
 nnoremap <Esc>[C <S-Right>
 nnoremap <Esc>[D <S-Left>
 
