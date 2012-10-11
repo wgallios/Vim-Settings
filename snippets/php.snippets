@@ -1,18 +1,30 @@
 snippet mget
-	${1:variable} = $vbulletin->sd['memcachemanual']->get($cache_key, ${2:"namespace"})
+	${1:variable} = $vbulletin->sd['memcachemanual']->get($cache_key, ${2:"namespace"});
 snippet mset
-	$vbulletin->sd['memcachemanual']->set($cache_key, ${1:variable}, ${2:timeout}, ${3:"namespace"})
+	$vbulletin->sd['memcachemanual']->set($cache_key, ${1:variable}, ${2:timeout}, ${3:"namespace"});
 snippet mdec
-	$vbulletin->sd['memcachemanual']->decrement($cache_key, 1, ${1:"namespace"})
+	$vbulletin->sd['memcachemanual']->decrement($cache_key, 1, ${1:"namespace"});
 snippet mdel
-	$vbulletin->sd['memcachemanual']->delete($cache_key, ${1:"namespace"})
+	$vbulletin->sd['memcachemanual']->delete($cache_key, ${1:"namespace"});
 snippet mflush
-	$vbulletin->sd['memcachemanual']->flush($cache_key)
+	$vbulletin->sd['memcachemanual']->flush($cache_key);
 snippet minc
-	$vbulletin->sd['memcachemanual']->increment($cache_key, 1, ${1:"namespace"})
+	$vbulletin->sd['memcachemanual']->increment($cache_key, 1, ${1:"namespace"});
 snippet mcache
-	${1:variable} = $vbulletin->sd['memcachemanual']->get($cache_key, ${2:"namespace"})
+	${1:variable} = $vbulletin->sd['memcachemanual']->get($cache_key, ${2:"namespace"});
 	if (!$1)
 	{
-		$vbulletin->sd['memcachemanual']->set($cache_key, $1, ${3:timeout}, $2)
+		$vbulletin->sd['memcachemanual']->set($cache_key, $1, ${3:timeout}, $2);
 	}
+snippet while
+	while (${1:/* condition */}) {
+		${2:// code...}
+	}
+snippet fore
+	foreach ($${1:variable} as $${2:key}) {
+		${3:// code...}
+	}
+snippet arr
+	$${1:arrayName} = array(
+		'${2}' => ${3},
+	);${4}
