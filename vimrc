@@ -372,7 +372,7 @@ let g:html_indent_script1 = "inc"
 let g:html_indent_style1  = "inc"
 
 " Taglist
-noremap <silent> ,t :TlistToggle<CR>
+noremap <silent> <Leader>tt :TlistToggle<CR>
 let g:Tlist_Auto_Open=0
 
 " SuperTab
@@ -399,10 +399,12 @@ nmap C :TComment<CR>
 vmap C :TComment<CR>
 
 " Tabularize
-nmap <Leader>t= :Tabularize /=>\?<CR>
-vmap <Leader>t= :Tabularize /=>\?<CR>
-nmap <Leader>t: :Tabularize /:<CR>
-vmap <Leader>t: :Tabularize /:<CR>
+nmap <Leader>t= :Tabularize /^[^=]\+\zs=>\?<CR>
+vmap <Leader>t= :Tabularize /^[^=]\+\zs=>\?<CR>
+nmap <Leader>t; :Tabularize /^[^:]\+\zs:<CR>
+vmap <Leader>t; :Tabularize /^[^:]\+\zs:<CR>
+nmap <Leader>t: :Tabularize /^[^:]\+\zs:<CR>
+vmap <Leader>t: :Tabularize /^[^:]\+\zs:<CR>
 
 if filereadable($HOME."/.vim/localrc")
     source ~/.vim/localrc
