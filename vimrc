@@ -398,8 +398,14 @@ let g:tcommentMapLeaderOp2 = ''
 nmap C :TComment<CR>
 vmap C :TComment<CR>
 
-call pathogen#infect()
+" Tabularize
+nmap <Leader>t= :Tabularize /=>\?<CR>
+vmap <Leader>t= :Tabularize /=>\?<CR>
+nmap <Leader>t: :Tabularize /:<CR>
+vmap <Leader>t: :Tabularize /:<CR>
 
 if filereadable($HOME."/.vim/localrc")
     source ~/.vim/localrc
 endif
+
+call pathogen#infect()
