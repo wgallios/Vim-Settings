@@ -260,7 +260,7 @@ function! RunCodingStandards()
     call Preserve("%s/\\Cwhile(/while (/e")
     call Preserve("%s/\\Ccatch(/catch (/e")
     call Preserve("%s/\\s\\+$//e")
-    call Preserve("normal gg=G")
+    " call Preserve("normal gg=G")
     call Preserve("v/./,/./-j")
     nohlsearch
 endfun
@@ -399,6 +399,10 @@ nmap C :TComment<CR>
 vmap C :TComment<CR>
 
 " Tabularize
+nmap `= :Tabularize /^[^=]\+\zs=>\?<CR>
+vmap `= :Tabularize /^[^=]\+\zs=>\?<CR>
+nmap `; :Tabularize /^[^:]\+\zs:<CR>
+vmap `; :Tabularize /^[^:]\+\zs:<CR>
 nmap <Leader>t= :Tabularize /^[^=]\+\zs=>\?<CR>
 vmap <Leader>t= :Tabularize /^[^=]\+\zs=>\?<CR>
 nmap <Leader>t; :Tabularize /^[^:]\+\zs:<CR>
