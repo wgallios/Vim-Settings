@@ -414,4 +414,4 @@ if filereadable($HOME."/.vim/localrc")
     source ~/.vim/localrc
 endif
 
-call pathogen#infect()
+"call pathogen#infect()
