@@ -16,3 +16,9 @@
 [submodule "bundle/tcomment"]
 	path = bundle/tcomment
 	url = http://github.com/tomtom/tcomment_vim
+[submodule "bundle.vcscommand"]
+	path = bundle.vcscommand
+	url = git://repo.or.cz/vcscommand
+[submodule "bundle/vcscommand"]
+	path = bundle/vcscommand
+	url = git://repo.or.cz/vcscommand
