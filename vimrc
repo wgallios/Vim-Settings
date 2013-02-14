@@ -414,5 +414,10 @@ if filereadable($HOME."/.vim/localrc")
     source ~/.vim/localrc
 endif
 
+"loads dbext plugin
+if filereadable($HOME."/.vim/bundle/dbext/autoload/dbext.vim")
+    source ~/.vim/bundle/dbext/autoload/dbext.vim
+endif
+
 "call pathogen#infect()
 
