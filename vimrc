@@ -57,7 +57,7 @@ if has("autocmd")
     filetype plugin on
     filetype indent on
     let php_folding=1
-    let php_sql_query=1
+    " let php_sql_query=1
     let php_htmlInStrings=1
 endif
 
@@ -131,13 +131,13 @@ vnoremap <S-Tab> <gv
 
 " Quick word jumping with Ctrl+Arrows
 
-inoremap <Esc>[A <Up>
-inoremap <Esc>[B <Down>
+inoremap <Esc>[A {
+inoremap <Esc>[B }
 inoremap <Esc>[C <S-Right>
 inoremap <Esc>[D <S-Left>
 
-nnoremap <Esc>[A <Up>
-nnoremap <Esc>[B <Down>
+nnoremap <Esc>[A {
+nnoremap <Esc>[B }
 nnoremap <Esc>[C <S-Right>
 nnoremap <Esc>[D <S-Left>
 
@@ -251,6 +251,7 @@ endfun
 
 command! CodingStandards call RunCodingStandards()
 function! RunCodingStandards()
+    retab
     call Preserve("%s/\\(\\S\\)\\s*{$/\\1\\r{/")
     call Preserve("%s/\\Cif(/if (/e")
     call Preserve("%s/\\Cfor(/for (/e")
@@ -259,9 +260,8 @@ function! RunCodingStandards()
     call Preserve("%s/\\Cwhile(/while (/e")
     call Preserve("%s/\\Ccatch(/catch (/e")
     call Preserve("%s/\\s\\+$//e")
-    call Preserve("normal gg=G")
+    " call Preserve("normal gg=G")
     call Preserve("v/./,/./-j")
-    retab
     nohlsearch
 endfun
 
@@ -328,6 +328,13 @@ function! JMComplete(A,L,P)
     return split(filelist, "\n")
 endfun
 
+command! -nargs=1 -complete=customlist,NMComplete NM tabnew ~/html/slickdeals/sdincludes/templates/MASTER/Hybrid/NewMobile/<args> <Bar> cd ~/html/slickdeals
+function! NMComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/NewMobile", a:A."*.html")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/NewMobile/", "", "g")
+    return split(filelist, "\n")
+endfun
+
 command! -nargs=1 -complete=customlist,PComplete P tabnew ~/html/phpunit/<args> <Bar> cd ~/html/slickdeals
 function! PComplete(A,L,P)
     let filelist = globpath($HOME."/html/phpunit", a:A."*.php")
@@ -343,6 +350,7 @@ function! TComplete(A,L,P)
     call filter(filelist, 'match(v:val, "/Classic/") == -1')
     call filter(filelist, 'match(v:val, "/Ice/") == -1')
     call filter(filelist, 'match(v:val, "/JQMobile/") == -1')
+    call filter(filelist, 'match(v:val, "/NewMobile/") == -1')
     call filter(filelist, 'match(v:val, "/Midnight/") == -1')
     call filter(filelist, 'match(v:val, "/Mobile/") == -1')
     call filter(filelist, 'match(v:val, "/RSS/") == -1')
@@ -356,11 +364,15 @@ endfun
 """ Plugins
 
 " JS indenting
+" let g:SimpleJsIndenter_BriefMode = 1
 
-let g:SimpleJsIndenter_BriefMode = 1
+" New JS/HTML indenting
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1  = "inc"
 
 " Taglist
-noremap <silent> ,t :TlistToggle<CR>
+noremap <silent> <Leader>tt :TlistToggle<CR>
 let g:Tlist_Auto_Open=0
 
 " SuperTab
@@ -386,8 +398,20 @@ let g:tcommentMapLeaderOp2 = ''
 nmap C :TComment<CR>
 vmap C :TComment<CR>
 
-call pathogen#infect()
+" Tabularize
+nmap `= :Tabularize /^[^=]\+\zs=>\?<CR>
+vmap `= :Tabularize /^[^=]\+\zs=>\?<CR>
+nmap `; :Tabularize /^[^:]\+\zs:<CR>
+vmap `; :Tabularize /^[^:]\+\zs:<CR>
+nmap <Leader>t= :Tabularize /^[^=]\+\zs=>\?<CR>
+vmap <Leader>t= :Tabularize /^[^=]\+\zs=>\?<CR>
+nmap <Leader>t; :Tabularize /^[^:]\+\zs:<CR>
+vmap <Leader>t; :Tabularize /^[^:]\+\zs:<CR>
+nmap <Leader>t: :Tabularize /^[^:]\+\zs:<CR>
+vmap <Leader>t: :Tabularize /^[^:]\+\zs:<CR>
 
 if filereadable($HOME."/.vim/localrc")
     source ~/.vim/localrc
 endif
+
+call pathogen#infect()
