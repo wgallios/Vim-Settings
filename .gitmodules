@@ -34,3 +34,6 @@
 [submodule "bundle/dbext"]
 	path = bundle/dbext
 	url = git://github.com/vim-scripts/dbext.vim.git
+[submodule "bundle/perl-support"]
+	path = bundle/perl-support
+	url = git@github.com:vim-scripts/perl-support.vim.git
