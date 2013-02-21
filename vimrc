@@ -418,6 +418,11 @@ nmap <F7> :DBResultsClose<CR>
 "nmap <F8> :DBExecVisualSQL<Cr>
 vnoremap <F9> :DBExecVisualSQL<cr>
 
+
+nmap <Leader>nf oCREATE NEW PROCEDURE <ProcedureName>ASBEGINSET NOCOUNT ON;SELECT * FROM...ENDGO
+nmap <Leader>emp oSELECT * FROM employees WHERE EMPID = 
+nmap <Leader>sto oSELECT * FROM akmstoredata WHERE StoreID = 
+
 if filereadable($HOME."/.vim/localrc")
     source ~/.vim/localrc
 endif
