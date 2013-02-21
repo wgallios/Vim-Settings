@@ -410,6 +410,14 @@ vmap <Leader>t; :Tabularize /^[^:]\+\zs:<CR>
 nmap <Leader>t: :Tabularize /^[^:]\+\zs:<CR>
 vmap <Leader>t: :Tabularize /^[^:]\+\zs:<CR>
 
+
+" dbext
+
+nmap <F7> :DBResultsClose<CR>
+"vnoremap <F9> <Leader>se <Plug>DBExecVisualSQL :'<,'>DBExecVisualSQL
+"nmap <F8> :DBExecVisualSQL<Cr>
+vnoremap <F9> :DBExecVisualSQL<cr>
+
 if filereadable($HOME."/.vim/localrc")
     source ~/.vim/localrc
 endif
