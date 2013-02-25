@@ -415,7 +415,7 @@ vmap <Leader>t: :Tabularize /^[^:]\+\zs:<CR>
 
 nmap <F7> :DBResultsClose<CR>
 "vnoremap <F9> <Leader>se <Plug>DBExecVisualSQL :'<,'>DBExecVisualSQL
-"nmap <F8> :DBExecVisualSQL<Cr>
+nmap <F8> :DBPromptForBufferParameters<Cr>
 vnoremap <F9> :DBExecVisualSQL<cr>
 
 
