@@ -423,6 +423,8 @@ nmap <Leader>nf oCREATE PROCEDURE <ProcedureName>ASBEGINSET NOCOUNT ON;SE
 nmap <Leader>emp oSELECT * FROM employees WHERE EMPID = 
 nmap <Leader>sto oSELECT * FROM akmstoredata WHERE StoreID = 
 
+let g:omni_sql_no_default_maps = 1
+
 if filereadable($HOME."/.vim/localrc")
     source ~/.vim/localrc
 endif
