@@ -419,7 +419,7 @@ nmap <F8> :DBPromptForBufferParameters<Cr>
 vnoremap <F9> :DBExecVisualSQL<cr>
 
 
-nmap <Leader>nf oCREATE PROCEDURE <ProcedureName>ASBEGINSET NOCOUNT ON;SELECT * FROM...ENDGO
+nmap <Leader>nf oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE PROCEDURE <ProcedureName>ASBEGINSET NOCOUNT ON;SELECT * FROM...ENDGO
 nmap <Leader>emp oSELECT * FROM employees WHERE EMPID = 
 nmap <Leader>sto oSELECT * FROM akmstoredata WHERE StoreID = 
 
