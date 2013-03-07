@@ -40,3 +40,6 @@
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = git://github.com/ervandew/supertab.git
+[submodule "bundle/SQLComplete"]
+	path = bundle/SQLComplete
+	url = git://github.com/vim-scripts/SQLComplete.vim.git
