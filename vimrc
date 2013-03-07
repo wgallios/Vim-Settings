@@ -419,7 +419,12 @@ nmap <F8> :DBPromptForBufferParameters<Cr>
 vnoremap <F9> :DBExecVisualSQL<cr>
 
 
-nmap <Leader>nf oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE PROCEDURE <ProcedureName>ASBEGINSET NOCOUNT ON;SELECT * FROM...ENDGO
+"New Stored Procedure in MSSQL
+nmap <Leader>nsp oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE PROCEDURE <ProcedureName>ASBEGINSET NOCOUNT ON;SELECT * FROM...ENDgo
+
+"new Scalar-valued function
+nmap <Leader>nsf oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE FUNCTION <FunctionName>()RETURNS <Function_Data_Type, , int>ASBEGIN--SELECT * FROM...ENDgo
+
 nmap <Leader>emp oSELECT * FROM employees WHERE EMPID = 
 nmap <Leader>sto oSELECT * FROM akmstoredata WHERE StoreID = 
 
