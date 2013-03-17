@@ -1,0 +1,15 @@
+snippet .get
+	.get("${1:url}", function(data){
+		${2://code...}
+	});
+snippet .post
+	.post("${1:url}", $('#${2:FormID}').serialize(), function(data){
+		${3://code...}
+	});
+snippet $
+	$('#${1:selector}').${2:function}
+snippet function
+	function (${1:variable})
+	{
+		${2:// code...}
+	}
