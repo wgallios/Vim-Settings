@@ -42,7 +42,7 @@ snippet function
 		${3://code ...}
 	}
 snippet sql
-	sql= "${1://SELECT * FROM ...}";
+	sql = "${1://SELECT * FROM ...}";
 
 	$query = $this->db->query($sql);
 
@@ -96,3 +96,10 @@ snippet try
 	}
 snippet throw
 	throw new Exception();
+snippet control-group
+	<div class="control-group">
+		<label class='control-label' for='${1:ID}'>${2:lbl}</label>
+		<div class="controls">
+			
+		</div>
+	</div>
