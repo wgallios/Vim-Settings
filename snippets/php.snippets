@@ -56,17 +56,6 @@ snippet div
 	div class='${1:class}'>
 		${2:<!-- HTML //-->}
 	</div>
-snippet class
-	class ${1:class name}
-	{
-		// constructor
-		public function ${2:class name}
-		{
-
-		}
-
-
-	}
 snippet try
 	try
 	{
@@ -95,7 +84,7 @@ snippet <select
 snippet <button
 	<button type='${1:type}' class='${2:class}' name='${3:name}' id='${4:id}'>${5:btnTxt}</button>
 snippet <textarea
-	<textarea name='${1:name}' id='${2:id}'><textarea>
+	<textarea name='${1:name}' id='${2:id}'></textarea>
 snippet <ul
 	<ul id='${1:id}' class='${2:class}'>
 		<li></li>
@@ -106,3 +95,7 @@ snippet <ol
 		<li></li>
 		<li><a href='#'></a></li>
 	</ol>
+snippet db
+	$this->db->${1:function}(${2:params});
+snippet cidb
+	$this->ci->db->${1:function}(${2:params});
