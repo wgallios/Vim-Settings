@@ -66,11 +66,18 @@ snippet try
 
 	}
 snippet throw
-	throw new Exception();
+	throw new Exception("${1:exceptionMsg}");
 snippet control-group
 	<div class="control-group">
 		<label class='control-label' for='${1:ID}'>${2:lbl}</label>
 		<div class="controls">
+			
+		</div>
+	</div>
+snippet form-group
+	<div class="form-group">
+		<label class='col-2 control-label' for='${1:ID}'>${2:lbl}</label>
+		<div class="col-10 controls">
 			
 		</div>
 	</div>
@@ -99,3 +106,5 @@ snippet db
 	$this->db->${1:function}(${2:params});
 snippet cidb
 	$this->ci->db->${1:function}(${2:params});
+snippet <!
+	<!-- ${1:comment} -->
