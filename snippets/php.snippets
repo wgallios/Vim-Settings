@@ -76,11 +76,11 @@ snippet control-group
 	</div>
 snippet form-group
 	<div class="form-group">
-		<label class='col-2 control-label' for='${1:ID}'>${2:lbl}</label>
-		<div class="col-10 controls">
+		<label class='col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label' for='${1:ID}'>${2:lbl}</label>
+		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 controls">
 			
-		</div>
-	</div>
+		</div> <!-- .controls -->
+	</div> <!-- .form-group -->
 snippet <input
 	<input type='${1:type}' name='${2:name}' id='${3:id}' value="${5:value}" placeholder='${4:placeholder}'>
 snippet <select
@@ -108,3 +108,7 @@ snippet cidb
 	$this->ci->db->${1:function}(${2:params});
 snippet <!
 	<!-- ${1:comment} -->
+snippet divcol
+	<div class='col-lg-${1:12} col-m-${2:12} col-s-${3:12} col-xs-${4:12}'>
+		
+	</div>
