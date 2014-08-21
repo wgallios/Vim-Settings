@@ -52,3 +52,6 @@
 [submodule "bundle/jade"]
 	path = bundle/jade
 	url = https://github.com/digitaltoad/vim-jade.git
+[submodule "bundle/vimongous"]
+	path = bundle/vimongous
+	url = git@github.com:wgallios/vimongous.git

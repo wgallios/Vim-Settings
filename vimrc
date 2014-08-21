@@ -131,15 +131,15 @@ vnoremap <S-Tab> <gv
 
 " Quick word jumping with Ctrl+Arrows
 
-" inoremap <Esc>[A {
-" inoremap <Esc>[B }
-"inoremap <Esc>[C <S-Right>
-"inoremap <Esc>[D <S-Left>
+inoremap <Esc>[A {
+inoremap <Esc>[B }
+inoremap <Esc>[C <S-Right>
+inoremap <Esc>[D <S-Left>
 
-"nnoremap <Esc>[A {
-"nnoremap <Esc>[B }
-"nnoremap <Esc>[C <S-Right>
-"nnoremap <Esc>[D <S-Left>
+nnoremap <Esc>[A {
+nnoremap <Esc>[B }
+nnoremap <Esc>[C <S-Right>
+nnoremap <Esc>[D <S-Left>
 
 " Tab movement keys
 nnoremap <silent> <Esc><Right> :tabn<CR>
@@ -172,12 +172,12 @@ noremap <silent> <F3> :TMToggle<CR>
 noremap <silent> <F4> :Flisttoggle<CR>
 
 " Save session
-"noremap <silent> <F5> :wa <Bar> mksession! ~/.vim/session <Bar> echo "Saved session"<CR>
-"noremap <silent> <F6> :source ~/.vim/session<CR>
+noremap <silent> <F5> :wa <Bar> mksession! ~/.vim/session <Bar> echo "Saved session"<CR>
+noremap <silent> <F6> :source ~/.vim/session<CR>
 
 " Ctrl+S to save
-"nmap <C-s> :write!<CR>
-"imap <C-s> <C-o>:write!<CR>
+nmap <C-s> :write!<CR>
+imap <C-s> <C-o>:write!<CR>
 
 " Remove annoying default Ctrl+B behavior
 nmap <C-b> <nop>
@@ -196,28 +196,28 @@ endfun
 nmap <silent> _$ :call Preserve("%s/\\s\\+$//e")<CR><C-l>
 
 " Fix keys over some SSH connections
-"inoremap <Esc>Oq 1
-"inoremap <Esc>Or 2
-"inoremap <Esc>Os 3
-"inoremap <Esc>Ot 4
-"inoremap <Esc>Ou 5
-"inoremap <Esc>Ov 6
-"inoremap <Esc>Ow 7
-"inoremap <Esc>Ox 8
-"inoremap <Esc>Oy 9
-"inoremap <Esc>Op 0
-"inoremap <Esc>On .
-"inoremap <Esc>OR *
-"inoremap <Esc>OQ /
-"inoremap <Esc>Ol +
-"inoremap <Esc>OS -
+inoremap <Esc>Oq 1
+inoremap <Esc>Or 2
+inoremap <Esc>Os 3
+inoremap <Esc>Ot 4
+inoremap <Esc>Ou 5
+inoremap <Esc>Ov 6
+inoremap <Esc>Ow 7
+inoremap <Esc>Ox 8
+inoremap <Esc>Oy 9
+inoremap <Esc>Op 0
+inoremap <Esc>On .
+inoremap <Esc>OR *
+inoremap <Esc>OQ /
+inoremap <Esc>Ol +
+inoremap <Esc>OS -
 
-"noremap  <Esc>[1~ <Home>
-"cnoremap <Esc>[1~ <Home>
+noremap  <Esc>[1~ <Home>
+cnoremap <Esc>[1~ <Home>
 
-"noremap  <Esc>[4~ <End>
-"cnoremap <Esc>[4~ <End>
-"inoremap <Esc>[4~ <End>
+noremap  <Esc>[4~ <End>
+cnoremap <Esc>[4~ <End>
+inoremap <Esc>[4~ <End>
 
 "" Auto Commands
 
@@ -280,11 +280,11 @@ noremap <silent> <Leader>tt :TlistToggle<CR>
 let g:Tlist_Auto_Open=0
 
 " SuperTab
-" let b:SuperTabDisabled=1
-" set completeopt=menuone,longest
-" let g:SuperTabLongestEnhanced=1
-" let g:SuperTabLongestHighlight=1
-" let g:SuperTabDefaultCompletionType='context'
+"let b:SuperTabDisabled=1
+set completeopt=menuone,longest
+let g:SuperTabLongestEnhanced=1
+let g:SuperTabLongestHighlight=1
+let g:SuperTabDefaultCompletionType='context'
 
 " NERDTree
 let NERDTreeQuitOnOpen=1
@@ -318,7 +318,7 @@ vmap <Leader>t: :Tabularize /^[^:]\+\zs:<CR>
 " dbext
 
 nmap <F7> :DBResultsClose<CR>
-"vnoremap <F9> <Leader>se <Plug>DBExecVisualSQL :'<,'>DBExecVisualSQL
+vnoremap <F9> <Leader>se <Plug>DBExecVisualSQL :'<,'>DBExecVisualSQL
 nmap <F8> :DBPromptForBufferParameters<Cr>
 vnoremap <F9> :DBExecVisualSQL<cr>
 
