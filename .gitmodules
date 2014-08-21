@@ -55,3 +55,9 @@
 [submodule "bundle/vimongous"]
 	path = bundle/vimongous
 	url = git@github.com:wgallios/vimongous.git
+[submodule "bundle/vimpipe"]
+	path = bundle/vimpipe
+	url = git@github.com:wgallios/vim-pipe.git
+[submodule "bundle/vim-less"]
+	path = bundle/vim-less
+	url = git@github.com:wgallios/vim-less.git

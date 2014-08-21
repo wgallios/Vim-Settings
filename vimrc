@@ -344,5 +344,13 @@ if filereadable($HOME."/.vim/bundle/dbext/autoload/dbext.vim")
     source ~/.vim/bundle/dbext/autoload/dbext.vim
 endif
 
-call pathogen#infect()
+" vim-pipe
+nmap <LocalLeader>r
 
+" vim-pipe mongodb setting
+autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
+
+" vim-less
+nnoremap <Leader>m :w <BAR> !lessc % > %:t:r.css<CR><space>
+
+call pathogen#infect()
