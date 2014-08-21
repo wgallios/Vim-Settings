@@ -131,8 +131,8 @@ vnoremap <S-Tab> <gv
 
 " Quick word jumping with Ctrl+Arrows
 
-inoremap <Esc>[A {
-inoremap <Esc>[B }
+" inoremap <Esc>[A {
+" inoremap <Esc>[B }
 inoremap <Esc>[C <S-Right>
 inoremap <Esc>[D <S-Left>
 
@@ -265,6 +265,102 @@ function! RunCodingStandards()
     nohlsearch
 endfun
 
+command! -nargs=1 -complete=customlist,CComplete C tabnew ~/html/slickdeals/css/306/<args> <Bar> cd ~/html/slickdeals
+function! CComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/css/306", a:A."*.css")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/css/306/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,CSComplete CS tabnew ~/html/slickdeals/clientscript/<args> <Bar> cd ~/html/slickdeals
+function! CSComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/clientscript", a:A."*.js")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/clientscript/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,JComplete J tabnew ~/html/slickdeals/scripts/306/<args> <Bar> cd ~/html/slickdeals
+function! JComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/scripts/306", a:A."*.js")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/scripts/306/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,IComplete I tabnew ~/html/slickdeals/forums/includes/<args> <Bar> cd ~/html/slickdeals
+function! IComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/forums/includes", "**/".a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/forums/includes/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,FComplete F tabnew ~/html/slickdeals/forums/<args> <Bar> cd ~/html/slickdeals
+function! FComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/forums", a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/forums/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,SComplete S tabnew ~/html/slickdeals/sdincludes/<args> <Bar> cd ~/html/slickdeals
+function! SComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes", a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,GComplete G tabnew ~/html/slickdeals/sdincludes/grabbers/<args> <Bar> cd ~/html/slickdeals
+function! GComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes/grabbers", a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/grabbers/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,MComplete M tabnew ~/html/slickdeals/sdincludes/templates/MASTER/Hybrid/Mobile/<args> <Bar> cd ~/html/slickdeals
+function! MComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/Mobile", a:A."*.html")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/Mobile/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,JMComplete JM tabnew ~/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile/<args> <Bar> cd ~/html/slickdeals
+function! JMComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile", a:A."*.html")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/JQMobile/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,NMComplete NM tabnew ~/html/slickdeals/sdincludes/templates/MASTER/Hybrid/NewMobile/<args> <Bar> cd ~/html/slickdeals
+function! NMComplete(A,L,P)
+    let filelist = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/NewMobile", a:A."*.html")
+    let filelist = substitute(filelist, $HOME."/html/slickdeals/sdincludes/templates/MASTER/Hybrid/NewMobile/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,PComplete P tabnew ~/html/phpunit/<args> <Bar> cd ~/html/slickdeals
+function! PComplete(A,L,P)
+    let filelist = globpath($HOME."/html/phpunit", a:A."*.php")
+    let filelist = substitute(filelist, $HOME."/html/phpunit/", "", "g")
+    return split(filelist, "\n")
+endfun
+
+command! -nargs=1 -complete=customlist,TComplete T tabnew ~/html/slickdeals/sdincludes/templates/MASTER/<args> <Bar> cd ~/html/slickdeals
+function! TComplete(A,L,P)
+    let filestr = globpath($HOME."/html/slickdeals/sdincludes/templates/MASTER", "**/".a:A."*.html")
+    let filestr = substitute(filestr, $HOME."/html/slickdeals/sdincludes/templates/MASTER/", "", "g")
+    let filelist = split(filestr, "\n")
+    call filter(filelist, 'match(v:val, "/Classic/") == -1')
+    call filter(filelist, 'match(v:val, "/Ice/") == -1')
+    call filter(filelist, 'match(v:val, "/JQMobile/") == -1')
+    call filter(filelist, 'match(v:val, "/NewMobile/") == -1')
+    call filter(filelist, 'match(v:val, "/Midnight/") == -1')
+    call filter(filelist, 'match(v:val, "/Mobile/") == -1')
+    call filter(filelist, 'match(v:val, "/RSS/") == -1')
+    call filter(filelist, 'match(v:val, "/Tablet/") == -1')
+    call filter(filelist, 'match(v:val, "SD1.0/") == -1')
+    call filter(filelist, 'match(v:val, "WAP1.0/") == -1')
+    return filelist
+endfun
+
+
 """ Plugins
 
 " JS indenting
@@ -280,11 +376,11 @@ noremap <silent> <Leader>tt :TlistToggle<CR>
 let g:Tlist_Auto_Open=0
 
 " SuperTab
-"let b:SuperTabDisabled=1
-set completeopt=menuone,longest
-let g:SuperTabLongestEnhanced=1
-let g:SuperTabLongestHighlight=1
-let g:SuperTabDefaultCompletionType='context'
+" let b:SuperTabDisabled=1
+" set completeopt=menuone,longest
+" let g:SuperTabLongestEnhanced=1
+" let g:SuperTabLongestHighlight=1
+" let g:SuperTabDefaultCompletionType='context'
 
 " NERDTree
 let NERDTreeQuitOnOpen=1
@@ -318,19 +414,19 @@ vmap <Leader>t: :Tabularize /^[^:]\+\zs:<CR>
 " dbext
 
 nmap <F7> :DBResultsClose<CR>
-vnoremap <F9> <Leader>se <Plug>DBExecVisualSQL :'<,'>DBExecVisualSQL
+"vnoremap <F9> <Leader>se <Plug>DBExecVisualSQL :'<,'>DBExecVisualSQL
 nmap <F8> :DBPromptForBufferParameters<Cr>
 vnoremap <F9> :DBExecVisualSQL<cr>
 
 
 "New Stored Procedure in MSSQL
-"nmap <Leader>nsp oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE PROCEDURE <ProcedureName>ASBEGINSET NOCOUNT ON;SELECT * FROM...ENDgo
+nmap <Leader>nsp oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE PROCEDURE <ProcedureName>ASBEGINSET NOCOUNT ON;SELECT * FROM...ENDgo
 
 "new Scalar-valued function
-"nmap <Leader>nsf oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE FUNCTION <FunctionName>()RETURNS <Function_Data_Type, , int>ASBEGIN--SELECT * FROM...ENDgo
+nmap <Leader>nsf oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE FUNCTION <FunctionName>()RETURNS <Function_Data_Type, , int>ASBEGIN--SELECT * FROM...ENDgo
 
-"nmap <Leader>emp oSELECT * FROM employees WHERE EMPID = 
-"nmap <Leader>sto oSELECT * FROM akmstoredata WHERE StoreID = 
+nmap <Leader>emp oSELECT * FROM employees WHERE EMPID = 
+nmap <Leader>sto oSELECT * FROM akmstoredata WHERE StoreID = 
 
 let g:omni_sql_no_default_maps = 1
 
