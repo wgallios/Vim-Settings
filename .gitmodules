@@ -58,3 +58,6 @@
 [submodule "bundle/vim-pipe"]
 	path = bundle/vim-pipe
 	url = git@github.com:wgallios/vim-pipe.git
+[submodule "bundle/dbext"]
+	path = bundle/dbext
+	url = git@github.com:wgallios/dbext.vim.git
