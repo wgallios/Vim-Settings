@@ -345,7 +345,7 @@ if filereadable($HOME."/.vim/bundle/dbext/autoload/dbext.vim")
 endif
 
 " vim-pipe
-nmap <LocalLeader>r
+"nmap <Leader>r
 
 " vim-pipe mongodb setting
 autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
