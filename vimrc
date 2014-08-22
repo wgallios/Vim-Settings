@@ -322,6 +322,7 @@ nmap <F7> :DBResultsClose<CR>
 "vnoremap <F9> <Leader>se <Plug>DBExecVisualSQL :'<,'>DBExecVisualSQL
 nmap <F8> :DBPromptForBufferParameters<Cr>
 vnoremap <F9> :DBExecVisualSQL<cr>
+"let g:dbext_default_profile_mongodb
 
 
 "New Stored Procedure in MSSQL
@@ -348,9 +349,10 @@ endif
 "nmap <Leader>r
 
 " vim-pipe mongodb setting
-autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
+"autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
 
 " vim-less
 nnoremap <Leader>m :w <BAR> !lessc % > %:t:r.css<CR><space>
+
 
 call pathogen#infect()
