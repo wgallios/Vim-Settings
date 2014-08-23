@@ -341,15 +341,20 @@ if filereadable($HOME."/.vim/localrc")
 endif
 
 "loads dbext plugin
-if filereadable($HOME."/.vim/bundle/dbext/autoload/dbext.vim")
-    source ~/.vim/bundle/dbext/autoload/dbext.vim
-endif
+"if filereadable($HOME."/.vim/bundle/dbext/autoload/dbext.vim")
+"    source ~/.vim/bundle/dbext/autoload/dbext.vim
+"endif
+
+"if filereadable($HOME."/.vim/bundle/vimongous/vimongous.vim")
+"    source ~/.vim/bundle/vimongous/vimongous.vim
+"endif
+
 
 " vim-pipe
 "nmap <Leader>r
 
 " vim-pipe mongodb setting
-"autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
+autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
 
 " vim-less
 nnoremap <Leader>m :w <BAR> !lessc % > %:t:r.css<CR><space>
