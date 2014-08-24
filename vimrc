@@ -94,9 +94,15 @@ endif
 
 " We know xterm-debian is a color terminal
 if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
-    set t_Co=16
-    set t_Sf=[3%dm
-    set t_Sb=[4%dm
+
+    set t_Co=256
+    set t_AB=^[[48;5;%dm
+    set t_AF=^[[38;5;%dm
+
+
+    "set t_Co=16
+    "set t_Sf=[3%dm
+    "set t_Sb=[4%dm
 endif
 
 
@@ -350,14 +356,20 @@ endif
 "endif
 
 
+
 " vim-pipe
 "nmap <Leader>r
 
 " vim-pipe mongodb setting
 autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
 
+"autocmd BufEnter *.tpl colorscheme default
+
+
 " vim-less
 nnoremap <Leader>m :w <BAR> !lessc % > %:t:r.css<CR><space>
 
+" airlin
+let g:airline#extensions#tabline#enabled = 1
 
 call pathogen#infect()
