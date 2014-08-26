@@ -369,7 +369,14 @@ autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
 " vim-less
 nnoremap <Leader>m :w <BAR> !lessc % > %:t:r.css<CR><space>
 
-" airlin
+" airline
+" if !exists('g:airline_symbols')
+"      let g:airline_symbols = {}
+"endif
+
+"let g:airline_symbols.space = "\ua0"
+
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
 call pathogen#infect()
