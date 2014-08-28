@@ -283,8 +283,8 @@ let g:html_indent_script1 = "inc"
 let g:html_indent_style1  = "inc"
 
 " Taglist
-noremap <silent> <Leader>tt :TlistToggle<CR>
-let g:Tlist_Auto_Open=0
+"noremap <silent> <Leader>tt :TlistToggle<CR>
+"let g:Tlist_Auto_Open=0
 
 " NERDTree
 let NERDTreeQuitOnOpen=1
@@ -364,12 +364,12 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 " Track the engine.
-Plugin 'SirVer/ultisnips'
-"
-" " Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
-"
-" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+"Plugin 'bundle/utisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+"Plugin 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
