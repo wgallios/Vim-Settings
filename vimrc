@@ -286,13 +286,6 @@ let g:html_indent_style1  = "inc"
 noremap <silent> <Leader>tt :TlistToggle<CR>
 let g:Tlist_Auto_Open=0
 
-" SuperTab
-" let b:SuperTabDisabled=1
-" set completeopt=menuone,longest
-" let g:SuperTabLongestEnhanced=1
-" let g:SuperTabLongestHighlight=1
-" let g:SuperTabDefaultCompletionType='context'
-
 " NERDTree
 let NERDTreeQuitOnOpen=1
 
@@ -331,16 +324,7 @@ vnoremap <F9> :DBExecVisualSQL<cr>
 "let g:dbext_default_profile_mongodb
 
 
-"New Stored Procedure in MSSQL
-nmap <Leader>nsp oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE PROCEDURE <ProcedureName>ASBEGINSET NOCOUNT ON;SELECT * FROM...ENDgo
-
-"new Scalar-valued function
-nmap <Leader>nsf oSET ANSI_NULLS ONgoSET QUOTED_IDENTIFIER ONgoCREATE FUNCTION <FunctionName>()RETURNS <Function_Data_Type, , int>ASBEGIN--SELECT * FROM...ENDgo
-
-nmap <Leader>emp oSELECT * FROM employees WHERE EMPID = 
-nmap <Leader>sto oSELECT * FROM akmstoredata WHERE StoreID = 
-
-let g:omni_sql_no_default_maps = 1
+" let g:omni_sql_no_default_maps = 1
 
 if filereadable($HOME."/.vim/localrc")
     source ~/.vim/localrc
@@ -378,5 +362,19 @@ let g:airline_symbols.space = "\ua0"
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+"
+" " Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+"
+" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 call pathogen#infect()

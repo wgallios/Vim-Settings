@@ -25,18 +25,12 @@
 [submodule "bundle/vim-javascript"]
 	path = bundle/vim-javascript
 	url = http://github.com/pangloss/vim-javascript.git
-[submodule "bundle/snipmate"]
-	path = bundle/snipmate
-	url = http://github.com/msanders/snipmate.vim.git
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = http://github.com/godlygeek/tabular.git
 [submodule "bundle/perl-support"]
 	path = bundle/perl-support
 	url = git@github.com:vim-scripts/perl-support.vim.git
-[submodule "bundle/supertab"]
-	path = bundle/supertab
-	url = git://github.com/ervandew/supertab.git
 [submodule "bundle/SQLComplete"]
 	path = bundle/SQLComplete
 	url = git://github.com/vim-scripts/SQLComplete.vim.git
@@ -73,3 +67,6 @@
 [submodule "bundle/vim-jade"]
 	path = bundle/vim-jade
 	url = https://github.com/wgallios/vim-jade.git
+[submodule "bundle/utisnips"]
+	path = bundle/utisnips
+	url = https://github.com/SirVer/ultisnips.git
