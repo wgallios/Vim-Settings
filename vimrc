@@ -283,8 +283,8 @@ let g:html_indent_script1 = "inc"
 let g:html_indent_style1  = "inc"
 
 " Taglist
-"noremap <silent> <Leader>tt :TlistToggle<CR>
-"let g:Tlist_Auto_Open=0
+noremap <silent> <Leader>tt :TlistToggle<CR>
+let g:Tlist_Auto_Open=0
 
 " NERDTree
 let NERDTreeQuitOnOpen=1
