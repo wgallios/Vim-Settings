@@ -1,16 +1,15 @@
 snippet .get
-	.get("${1:url}", function(data){
+	.get("${1:url}", function(data) {
 		${2://code...}
 	});
 snippet .post
-	.post("${1:url}", $('#${2:FormID}').serialize(), function(data){
+	.post("${1:url}", $('#${2:FormID}').serialize(), function(data) {
 		${3://code...}
 	});
 snippet $
 	$('#${1:selector}').${2:function}
 snippet function
-	function (${1:variable})
-	{
+	function (${1:variable}) {
 		${2:// code...}
 	}
 snippet .click
@@ -18,10 +17,19 @@ snippet .click
 		${1://code}
 	});
 snippet try
-	try
-	{
-		${1://code}
+	try {
+		${1}
+	} catch (e) {
+		console.error(e);
 	}
-	catch (e)
+snippet con
+	console.log(${1});
+snippet {}
 	{
+		${1:key}: ${2}
 	}
+snippet []
+	[${1:value}]
+snippet req
+	require('${1:module}');
+
