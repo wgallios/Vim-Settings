@@ -73,3 +73,6 @@
 [submodule "bundle/grunt"]
 	path = bundle/grunt
 	url = https://github.com/mklabs/grunt.vim.git
+[submodule "bundle/vim-coffee-script"]
+	path = bundle/vim-coffee-script
+	url = https://github.com/wgallios/vim-coffee-script
