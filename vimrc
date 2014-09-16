@@ -379,4 +379,6 @@ let g:UltiSnipsEditSplit="vertical"
 
 " autocmd VimEnter * G
 
+au BufRead,BufNewFile *.pyj set filetype=rapydscript
+
 call pathogen#infect()
