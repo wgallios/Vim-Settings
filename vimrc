@@ -112,6 +112,8 @@ let mapleader=","
 nmap ; :
 vmap ; :
 
+nnoremap tn :tabnew<Space>
+
 " Easier diffget
 if &diff
     nnoremap <Leader>d[ :diffget 1
@@ -380,5 +382,7 @@ let g:UltiSnipsEditSplit="vertical"
 " autocmd VimEnter * G
 
 au BufRead,BufNewFile *.pyj set filetype=rapydscript
+
+set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 
 call pathogen#infect()
