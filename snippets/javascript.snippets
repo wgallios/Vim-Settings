@@ -9,8 +9,8 @@ snippet .post
 snippet $
 	$('#${1:selector}').${2:function}
 snippet function
-	function (${1:variable}) {
-		${2:// code...}
+	function (${1}) {
+		${2}
 	}
 snippet .click
 	.click(function(e){
@@ -34,3 +34,21 @@ snippet req
 	require('${1:module}');
 snippet jsonr
 	self.jsonr(${1:200}, ${2}, ${3:data});
+snippet $log
+	$log.debug(${1});
+snippet log
+	log.debug(${1});
+snippet $sc
+	$scope.${1}
+snippet $http
+	$http({
+		url: '${1:/}',
+		method: '${2:POST}',
+		data: {}
+	}).success(function(data.status){
+
+	}).error(function(data, status) {
+
+	});
+snippet this
+	var _this = this;
