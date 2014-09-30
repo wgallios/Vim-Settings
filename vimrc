@@ -337,9 +337,9 @@ endif
 "    source ~/.vim/bundle/dbext/autoload/dbext.vim
 "endif
 
-"if filereadable($HOME."/.vim/bundle/vimongous/vimongous.vim")
-"    source ~/.vim/bundle/vimongous/vimongous.vim
-"endif
+if filereadable($HOME."/.vim/bundle/vimongous/vimongous.vim")
+   source ~/.vim/bundle/vimongous/vimongous.vim
+endif
 
 
 
@@ -347,7 +347,7 @@ endif
 "nmap <Leader>r
 
 " vim-pipe mongodb setting
-autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
+" autocmd BufNewFile, BufReadPost *.mql setlocal filetype=mongoql
 
 "autocmd BufEnter *.tpl colorscheme default
 
