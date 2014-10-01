@@ -40,40 +40,30 @@ snippet log
 	log.debug(${1});
 snippet $sc
 	$scope.${1}
-snippet $http
-	$http({
-		url: '${1:/}',
-		method: '${2:POST}',
-		data: {}
-	}).success(function(data.status){
-
-	}).error(function(data, status) {
-
-	});
 snippet this
 	var _this = this;
 snippet proto
-	${1:Object}.prototype.${2} = function () {
+	${1:Object}.prototype.${2:name} = function () {
 	};
 snippet for
-	for (var i = 0; i < ${1}; i++) {
+	for (var i = 0; i < ${1:length}; i++) {
 	
 	}
-snippet .le
-	.length
-snippet .su
-	.substring(${1:0},${2:0});
-snippet .sp
-	.split('{$1}');
-snippet .jo
-	.join('${1}');
+snippet len
+	length
+snippet sub
+	substring(${1:start},${2:stop});
+snippet sp
+	split('{$1}');
+snippet jo
+	join('${1}');
 snippet Arr
 	Array(${1});
 snippet $http
 	$http({
 		url: '${1:/}'
 		method: '${2:GET}',
-		data: {}
+		${3:data: {}},
 	}).success(function(data, status) {
 		
 	}).error(function(data, status){
