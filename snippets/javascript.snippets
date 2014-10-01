@@ -8,9 +8,9 @@ snippet .post
 	});
 snippet $
 	$('#${1:selector}').${2:function}
-snippet function
-	function (${1}) {
-		${2}
+snippet func
+	function ${1} (${2}) {
+		${3}
 	}
 snippet .click
 	.click(function(e){
@@ -20,7 +20,7 @@ snippet try
 	try {
 		${1}
 	} catch (e) {
-		console.error(e);
+		console.error(e.message);
 	}
 snippet con
 	console.log(${1});
@@ -33,7 +33,7 @@ snippet []
 snippet req
 	require('${1:module}');
 snippet jsonr
-	self.jsonr(${1:200}, ${2}, ${3:data});
+	_this.jsonr(${1:200}, ${2}, ${3:data});
 snippet $log
 	$log.debug(${1});
 snippet log
@@ -59,7 +59,27 @@ snippet for
 	for (var i = 0; i < ${1}; i++) {
 	
 	}
-snippet len
-	length
-snippet sub
-	substring(${1:0},${2:0});
+snippet .le
+	.length
+snippet .su
+	.substring(${1:0},${2:0});
+snippet .sp
+	.split('{$1}');
+snippet .jo
+	.join('${1}');
+snippet Arr
+	Array(${1});
+snippet $http
+	$http({
+		url: '${1:/}'
+		method: '${2:GET}',
+		data: {}
+	}).success(function(data, status) {
+		
+	}).error(function(data, status){
+	
+	});
+snippet Q.pro
+	Q.promise(function(resolve, reject, notify) {
+		${1}
+	});

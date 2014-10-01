@@ -385,4 +385,8 @@ set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 
 nnoremap <leader>, A,<Esc>A
 
+nnoremap <leader>; A;
+inoremap ;; <Esc>A;
+
+
 call pathogen#infect()
