@@ -383,4 +383,6 @@ au BufRead,BufNewFile *.pyj set filetype=rapydscript
 
 set rulerformat=%55(%{strftime('%a\ %b\ %e\ %I:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 
+nnoremap <leader>, A,<Esc>A
+
 call pathogen#infect()
