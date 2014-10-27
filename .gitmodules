@@ -76,3 +76,6 @@
 [submodule "bundle/vim-rapydscript"]
 	path = bundle/vim-rapydscript
 	url = git@github.com:wgallios/vim-rapydscript.git
+[submodule "bundle/rename"]
+	path = bundle/rename
+	url = git@github.com:wgallios/rename.vim.git

@@ -4,6 +4,9 @@ snippet form-group
 		input.form-control(type='${3:name}', name='${1:name}', placeholder='', required='required', ng-model='${1:name}')
 		alert.help-block.velocity-transition-slideDownIn(type='warning', ng-show='${4:form}.${1:name}.$invalid && !${4:form}.${1:name}.$pristine')
 			| ${5:warning}
+snippet tab
+	tabindex='${1}'
 snippet script
-		script(type='text/javascript', src='${1:/js/${2:script.js}}')
-	
+	script(type='${2:text/javascript}' src='${1:/js/}')
+snippet link
+		link(type='${3:text/css}', rel='${4:stylesheet}', href='${2:/css/${1:main.css}}')
