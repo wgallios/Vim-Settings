@@ -9,4 +9,11 @@ snippet tab
 snippet script
 	script(type='${2:text/javascript}' src='${1:/js/}')
 snippet link
-		link(type='${3:text/css}', rel='${4:stylesheet}', href='${2:/css/${1:main.css}}')
+	link(type='${3:text/css}', rel='${4:stylesheet}', href='${2:/css/${1:main.css}}')
+snippet input-group
+	div.input-group
+		span.input-group-addon
+			i.fa.fa-${1:search}
+		input.form-control(type='text', name='${3}', ng-model='${4}',  placeholder='${4}')
+		span.input-group-btn
+			button.btn${5:.btn-default(type='button')} ${2:Submit}

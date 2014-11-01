@@ -61,7 +61,7 @@ snippet Arr
 	Array(${1});
 snippet $http
 	$http({
-		url: '${1:/}'
+		url: '${1:/}',
 		method: '${2:GET}',
 		${3:data: {}},
 	}).success(function(data, status) {
