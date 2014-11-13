@@ -127,6 +127,8 @@ let mapleader=","
 nmap ; :
 vmap ; :
 
+cmap w!! w !sudo tee > /dev/null %
+
 nnoremap tn :tabnew<Space>
 
 " Easier diffget
@@ -403,7 +405,5 @@ nnoremap <leader>, A,<Esc>A
 
 nnoremap <leader>; A;
 inoremap ;; <Esc>A;
-
-autocmd Colorscheme * highlight FoldColumn guifg=bg guibg=bg
 
 call pathogen#infect()
