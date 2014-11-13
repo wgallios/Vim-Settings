@@ -35,9 +35,17 @@ set softtabstop=4
 set tabstop=4
 
 
+
 " Number lines
 set relativenumber
 set number
+set numberwidth=5
+set foldcolumn=1
+
+" Color column
+highlight ColorColumn ctermbg=DarkMagenta
+highlight ColorColumn ctermfg=15
+set cc=1,2,3,80
 
 set wildmenu
 set wildignore+=.git/*,.hg/*,.svn/*,*.orig          " version control
@@ -393,5 +401,6 @@ nnoremap <leader>, A,<Esc>A
 nnoremap <leader>; A;
 inoremap ;; <Esc>A;
 
+autocmd highlight ColorColumn ctermbg=5
 
 call pathogen#infect()

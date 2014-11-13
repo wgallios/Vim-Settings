@@ -79,3 +79,6 @@
 [submodule "bundle/rename"]
 	path = bundle/rename
 	url = git@github.com:wgallios/rename.vim.git
+[submodule "bundle/gitgutter"]
+	path = bundle/gitgutter
+	url = git@github.com:wgallios/vim-gitgutter.git
