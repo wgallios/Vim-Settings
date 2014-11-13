@@ -39,13 +39,8 @@ set tabstop=4
 " Number lines
 set relativenumber
 set number
-set numberwidth=5
+set numberwidth=1
 set foldcolumn=1
-
-" Color column
-highlight ColorColumn ctermbg=DarkMagenta
-highlight ColorColumn ctermfg=15
-set cc=1,2,3,80
 
 set wildmenu
 set wildignore+=.git/*,.hg/*,.svn/*,*.orig          " version control
@@ -62,6 +57,13 @@ set suffixes=.bak,~,.o,.info,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx
 syntax on
 colorscheme default
 set background=dark
+
+" Color column
+highlight ColorColumn ctermbg=DarkMagenta
+highlight ColorColumn ctermfg=15
+highlight FoldColumn ctermbg=3
+highlight FoldColumn ctermfg=1
+set cc=1,2,3,4,80
 
 " fix diff colors
 highlight DiffText ctermbg=1
@@ -401,6 +403,6 @@ nnoremap <leader>, A,<Esc>A
 nnoremap <leader>; A;
 inoremap ;; <Esc>A;
 
-autocmd highlight ColorColumn ctermbg=5
+autocmd Colorscheme * highlight FoldColumn guifg=bg guibg=bg
 
 call pathogen#infect()

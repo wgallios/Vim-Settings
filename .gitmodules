@@ -82,3 +82,6 @@
 [submodule "bundle/gitgutter"]
 	path = bundle/gitgutter
 	url = git@github.com:wgallios/vim-gitgutter.git
+[submodule "bundle/aftercolors"]
+	path = bundle/aftercolors
+	url = git@github.com:wgallios/AfterColors.vim.git
