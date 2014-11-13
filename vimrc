@@ -404,10 +404,10 @@ nnoremap <leader>, A,<Esc>A
 nnoremap <leader>; A;
 inoremap ;; <Esc>A;
 
-' resize horzontal split window
+" resize horzontal split window
 nmap <C-Up> <C-W>-<C-W>-
 nmap <C-Down> <C-W>+<C-W>+
-' resize vertical split window
+" resize vertical split window
 nmap <C-Left> <C-W>><C-W>>
 nmap <C-Right> <C-W><<C-W><
 
