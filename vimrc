@@ -34,6 +34,11 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
+
+" Number lines
+set relativenumber
+set number
+
 set wildmenu
 set wildignore+=.git/*,.hg/*,.svn/*,*.orig          " version control
 set wildignore+=._*,.DS_Store                       " OSX nonsense
