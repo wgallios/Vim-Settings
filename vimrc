@@ -192,11 +192,12 @@ noremap <silent> <F2> :NERDTreeToggle<CR>
 noremap <silent> <F3> :TMToggle<CR>
 
 " Show Function List
-noremap <silent> <F4> :Flisttoggle<CR>
+" noremap <silent> <F4> :Flisttoggle<CR>
+noremap <silent> <F4> :TlistToggle<CR>
 
 " Save session
-noremap <silent> <F5> :wa <Bar> mksession! ~/.vim/session <Bar> echo "Saved session"<CR>
-noremap <silent> <F6> :source ~/.vim/session<CR>
+" noremap <silent> <F5> :wa <Bar> mksession! ~/.vim/session <Bar> echo "Saved session"<CR>
+" noremap <silent> <F6> :source ~/.vim/session<CR>
 
 " Ctrl+S to save
 nmap <C-s> :write!<CR>
