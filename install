@@ -1,0 +1,35 @@
+#! /bin/bash
+
+# Load the VERBOSE setting and other rcS variables
+. /lib/init/vars.sh
+
+# Define LSB log_* functions.
+# Depend on lsb-base (>= 3.2-14) to ensure that this file is present
+# and status_of_proc is working.
+. /lib/lsb/init-functions
+
+
+# present working directory
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# TODO check to ensure no ~/.vimrc
+
+# addes path to bashrc script to users /.bashrc
+log_daemon_msg "Creating ~/.vimrc symlink"
+ln -s "$DIR/vimrc" ~/.vimrc
+log_end_msg 0
+
+
+# submodules
+log_daemon_msg "Initializing submodules"
+git submodule init
+log_end_msg 0
+
+# Updates Submodules
+log_daemon_msg "Updating submodules"
+git submodule update
+log_end_msg 0
+
+
+
+
