@@ -55,6 +55,7 @@ set wildignore+=*.spl,.sw?,.py?                     " more binary stuff
 set suffixes=.bak,~,.o,.info,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx
 
 syntax on
+syntax enable
 colorscheme default
 set background=dark
 
