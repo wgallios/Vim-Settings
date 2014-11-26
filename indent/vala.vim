@@ -1,0 +1,1 @@
+/home/wgallios/.vim/bundle/vala/indent/vala.vim

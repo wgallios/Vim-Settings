@@ -85,3 +85,6 @@
 [submodule "bundle/aftercolors"]
 	path = bundle/aftercolors
 	url = git@github.com:wgallios/AfterColors.vim.git
+[submodule "bundle/vala"]
+	path = bundle/vala
+	url = https://github.com/wgallios/vim-vala.git

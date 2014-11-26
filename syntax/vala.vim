@@ -1,0 +1,1 @@
+/home/wgallios/.vim/bundle/vala/syntax/vala.vim
